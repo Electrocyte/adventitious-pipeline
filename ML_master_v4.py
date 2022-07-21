@@ -35,7 +35,8 @@ run_models = True
 epoch_time = str(int(time.time()))
 database_dict = {"v_f_b":"v_f_b"}
 samples_to_subset = []
-github = "D:/GitHub/SMART-CAMP/"
+# github = "D:/GitHub/SMART-CAMP/"
+github = "/mnt/d/GitHub/SMART-CAMP/"
 
 # # SUBSET SAMPLES
 subset = True
@@ -44,7 +45,8 @@ independent_var = "_aDNA_" # amplicon
 # INDIVIDUAL EXPERIMENT INPUTS - SPIKE SPECIES, LABELS, TRAINING DATABASE, SAMPLES TO EXCLUDE FOR EVALUATION.
 
 if bacteria_fungus_human:
-    directory = "D:/SequencingData/Harmonisation/DNA/analysis"
+    # directory = "D:/SequencingData/Harmonisation/DNA/analysis"
+    directory = "/mnt/d/SequencingData/Harmonisation/DNA/analysis"
     json_mask = "catboost_decision_true_mask_bact_fungal-human-dictionary-824.json"
     species = {"Pseudomonas aeruginosa":["PA"], "Cutibacterium acnes":["Cacnes","Pacnes"], \
                 "Escherichia coli":["EC"], "Klebsiella pneumoniae":["Klebpneu"], \
