@@ -15,6 +15,7 @@ from functools import partial
 import seaborn as sns
 import matplotlib.pyplot as plt
 from string import whitespace
+from typing import Tuple
 import matplotlib.patches as mpatches
 
 
@@ -24,7 +25,7 @@ def load_in_data(
     Nanoplot: pd.DataFrame,
     kingdom: str,
     BLASTn_name: str,
-) -> (list, pd.DataFrame, pd.DataFrame, pd.DataFrame):
+) -> Tuple[list, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     print(f"BLAST file: {BLAST}")
     print(f"Centrifuge file: {Centrifuge}")
     BLAST_df = pd.read_csv(BLAST)
@@ -99,7 +100,7 @@ def std_val_func(col_type: str, row: str) -> int:
 
 
 def count_for_cols(ce_df: pd.DataFrame, hs_df: pd.DataFrame, col_type: str, col_out: str) -> \
-                    (pd.DataFrame, pd.DataFrame):
+                    Tuple[pd.DataFrame, pd.DataFrame]:
     
     partial_func = partial(std_val_func, col_type)
 
@@ -134,7 +135,7 @@ def clean_centrifuge(df: pd.DataFrame) -> pd.DataFrame:
 
 def subset_samples(df1: pd.DataFrame, df2: pd.DataFrame, df3: pd.DataFrame, \
                    negs: str, indep: str) -> \
-    (pd.DataFrame, pd.DataFrame, pd.DataFrame):
+    Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     
     # spike = "TC"
     # pure = "pure"
@@ -447,10 +448,10 @@ def main(directory: str,
         species: dict, 
         _ML_out_: str,
         subset: bool,
-        independent_var: str) -> (list, 
+        independent_var: str) -> Tuple[list, 
                                   list, 
                                   pd.DataFrame, 
-                                  pd.DataFrame):    
+                                  pd.DataFrame]:    
     
     Nanoplot = f"{directory}/nanoplot_summary_data.csv"
     
