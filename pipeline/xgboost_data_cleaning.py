@@ -15,7 +15,6 @@ from functools import partial
 import seaborn as sns
 import matplotlib.pyplot as plt
 from string import whitespace
-from typing import Tuple
 import matplotlib.patches as mpatches
 
 
@@ -25,7 +24,7 @@ def load_in_data(
     Nanoplot: pd.DataFrame,
     kingdom: str,
     BLASTn_name: str,
-) -> Tuple[list, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+) -> (list, pd.DataFrame, pd.DataFrame, pd.DataFrame):
     print(f"BLAST file: {BLAST}")
     print(f"Centrifuge file: {Centrifuge}")
     BLAST_df = pd.read_csv(BLAST)
@@ -100,7 +99,7 @@ def std_val_func(col_type: str, row: str) -> int:
 
 
 def count_for_cols(ce_df: pd.DataFrame, hs_df: pd.DataFrame, col_type: str, col_out: str) -> \
-                    Tuple[pd.DataFrame, pd.DataFrame]:
+                    (pd.DataFrame, pd.DataFrame):
     
     partial_func = partial(std_val_func, col_type)
 
@@ -135,7 +134,7 @@ def clean_centrifuge(df: pd.DataFrame) -> pd.DataFrame:
 
 def subset_samples(df1: pd.DataFrame, df2: pd.DataFrame, df3: pd.DataFrame, \
                    negs: str, indep: str) -> \
-    Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    (pd.DataFrame, pd.DataFrame, pd.DataFrame):
     
     # spike = "TC"
     # pure = "pure"
@@ -448,10 +447,10 @@ def main(directory: str,
         species: dict, 
         _ML_out_: str,
         subset: bool,
-        independent_var: str) -> Tuple[list, 
+        independent_var: str) -> (list, 
                                   list, 
                                   pd.DataFrame, 
-                                  pd.DataFrame]:    
+                                  pd.DataFrame):    
     
     Nanoplot = f"{directory}/nanoplot_summary_data.csv"
     
@@ -603,4 +602,115 @@ if __name__ == "__main__":
 
 
 
+
+# from nonconformist.icp import IcpClassifier, IcpRegressor
+# from nonconformist.nc import ClassifierNc, MarginErrFunc, ClassifierAdapter, RegressorNc, AbsErrorErrFunc
+# # import copy  
+
+# # https://towardsdatascience.com/how-to-add-uncertainty-estimation-to-your-models-with-conformal-prediction-a5acdb86ea05
+# def classifier_calibration_curve(estimator: XGBClassifier, 
+#                                  X: np.ndarray, 
+#                                  y: np.ndarray, 
+#                                  alphas =np.linspace(0,1,10, endpoint=True)):
+#     errors = []
+#     set_sizes = []
+#     for a in alphas:
+#         pred = estimator.predict(X, significance=a) # significance = p-value
+#         set_sizes.append(np.mean([np.sum(set__) for set__ in pred]))
+#         errors.append(1 - np.mean([set_[t] for set_, t in zip(pred, y)]))
+#     return errors, set_sizes
+
+
+# def classification_calibration_plot(dataset_used: str, 
+#                                     metagenome_classifier_used: str, 
+#                                     estimator: XGBClassifier, 
+#                                     X:  np.ndarray, 
+#                                     y:  np.ndarray, 
+#                                     _type_: str,
+#                                     alphas=np.linspace(0,1,10, endpoint=True)):
+#     errors, sizes = classifier_calibration_curve(estimator,X,y,alphas)
+#     fig, ax1 = plt.subplots(figsize=(15,15))
+#     ax2 = ax1.twinx()
+#     ax1.plot([0,1], [0,1])
+    
+#     ax1.plot(alphas, errors, 'o', color = 'black', linewidth=7.0)
+#     ax2.plot(alphas, sizes,  '-', color = 'blue', linewidth=7.0)
+    
+#     ax1.tick_params(axis="x", labelsize=25)
+#     ax1.tick_params(axis="y", labelsize=25)
+#     ax2.tick_params(axis="y", labelsize=25)
+    
+#     ax1.set_xlabel('Significance', size=40)
+#     ax1.set_ylabel('Error Rate', size=40)
+#     ax2.set_ylabel('Avg. Set Size', size=40)
+    
+#     title = f'Classification Conformal Calibration Curve for {metagenome_classifier_used} on {dataset_used} data for {_type_}'
+#     new_title = clean_strings(title, 120)
+#     plt.title(new_title, size=40)
+#     plt.legend(loc=0, prop={"size": 40}, markerscale=10)
+#     plt.show()
+    
+
+# def conformal_analysis(dataset_used: str, 
+#                        metagenome_classifier_used: str, 
+#                        X_test: np.ndarray, 
+#                        y_test: np.ndarray, 
+#                        estimator: XGBClassifier, 
+#                        X_train: np.ndarray, 
+#                        y_train: np.ndarray,
+#                        _type_: str,
+#                        XGB_out: str):
+#     import dill as pickle
+#     ############ conformal ############
+#     filename_save = f"icp_{_type_}-{metagenome_classifier_used}.sav"
+#     if len(X_train) > 0:
+#         X_calibration, X_test, y_calibration, y_test = train_test_split(X_test, y_test, test_size=0.4, random_state=736)
+#         icp = IcpClassifier(ClassifierNc(ClassifierAdapter(estimator), MarginErrFunc()))
+#         icp.fit(X_train, y_train)
+#         icp.calibrate(X_calibration, y_calibration)
+#         icp_model_save = f"{XGB_out}/{filename_save}"
+#         print(f"Saving conformal icp model to: {icp_model_save}")
+#         pickle.dump(icp, open(icp_model_save, "wb"))
+#     else:
+#         icp_model_save = f"{XGB_out}/{filename_save}"
+#         if Path(icp_model_save).is_file():
+#             icp = pickle.load(open(icp_model_save, "rb"))       
+            
+#     prediction03 = icp.predict(X_test, 0.3)    
+#     prediction01 = icp.predict(X_test, 0.1)
+#     prediction005 = icp.predict(X_test, 0.05)
+#     prediction001 = icp.predict(X_test, 0.01)
+#     for sig, prediction in {0.3: prediction03, 0.1: prediction01, 0.05: prediction005, 0.01: prediction001}.items():
+#         df = pd.DataFrame(prediction)
+#         # df['C'] = df[0].eq(df[1]) # label False / False; True / True = TRUE
+#         df['p'] = df[0].ne(df[1]) # label False / True; True / False = TRUE
+#         vals = df['p'].value_counts()
+#         print(f"\nSignificance: {sig}; FALSE: {vals.loc[False]}; TRUE: {vals.loc[True]}")
+#         print(f'Percent TRUE: {(vals.loc[True] / (vals.loc[True] + vals.loc[False])) * 100:.2f} %')
+    
+#     # from nonconformist.evaluation import ClassIcpCvHelper
+#     # from nonconformist.evaluation import class_mean_errors
+#     # from nonconformist import evaluation
+#     # # evaluation requires updating of library import!!!!!!!!!!!!!!
+#     # # from sklearn.model_selection import train_test_split
+#     # # from sklearn.model_selection import StratifiedShuffleSplit
+#     # # from sklearn.model_selection import KFold  
+    
+#     # icp_cv = ClassIcpCvHelper(icp)
+
+#     # evaluation.cross_val_score(icp_cv, X_test, y_test, scoring_funcs=[class_mean_errors])
+    
+#     classification_calibration_plot(dataset_used, metagenome_classifier_used, icp, X_test, y_test, _type_)    
+#     ############ conformal ############
+    
+#     return [prediction01, prediction005]
+
+
+# metagenome_classifier_used = "centrifuge"
+# dataset_used = "train-test"
+# input_df = train_test_df_ce
+# data_cols = cd_data_cols
+# id_cols = ce_id_cols
+# _type_ = "sample status"
+# estimator = XGB_classifier_model
         
