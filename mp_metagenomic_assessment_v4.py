@@ -645,10 +645,12 @@ print(f"Summary data located at: {latest_run}")
 
 # time ~/SMART-CAMP/mp_metagenomic_assessment_v4.py -d /mnt/usersData/Viral_human/  -t 20 -ci ~/SequencingData/Centrifuge_libraries/ -c -qf -bl "v_f_b" -m -rs 1 -fd "/home/james/SMART-CAMP/configs/viral_DNA_all8.txt" -hn "TC,Jurkat" 
 
+# time ~/SMART-CAMP/mp_metagenomic_assessment_v4.py -d /mnt/usersData/DNA/  -t 20 -ci ~/SequencingData/Centrifuge_libraries/ -c -qf -bl "v_f_b" -m -rs 1 -fd "/home/james/SMART-CAMP/configs/ALL_DNA_BAC_FUN.txt" -hn "TC" 
+
 # NEW NEGATIVE CONTROLS
 # time ~/SMART-CAMP/mp_metagenomic_assessment_v4.py -d /mnt/usersData/DNA/  -t 20 -ci ~/SequencingData/Centrifuge_libraries/ -c -qf -cl "virus" -bl "cviral"  -m -rs 1 -bc "/home/james/SMART-CAMP/configs/aDNA_all2.csv" -hn "TC" 
 # time ~/SMART-CAMP/mp_metagenomic_assessment_v4.py -d /mnt/usersData/DNA/  -t 20 -ci ~/SequencingData/Centrifuge_libraries/ -c -qf -cl "fungal_all" -bl "fungal_all"  -m -rs 1 -bc "/home/james/SMART-CAMP/configs/aDNA_all2.csv" -hn "TC" 
 # time ~/SMART-CAMP/mp_metagenomic_assessment_v4.py -d /mnt/usersData/DNA/  -t 20 -ci ~/SequencingData/Centrifuge_libraries/ -c -qf -cl "16S_23S" -bl "filter_bacteria"  -m -rs 1 -bc "/home/james/SMART-CAMP/configs/aDNA_all2.csv" -hn "TC" 
 
-# time ~/SMART-CAMP/mp_metagenomic_assessment_v4.py -d /mnt/usersData/DNA/  -t 20 -ci ~/SequencingData/Centrifuge_libraries/ -c -qf -bl "v_f_b" -m -rs 1 -fd "/home/james/SMART-CAMP/configs/ALL_DNA_BAC_FUN.txt" -hn "TC" 
+
 
