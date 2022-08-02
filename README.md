@@ -64,35 +64,6 @@ Run Pipeline -  Example run commands for metagenomic pipeline for bacterial, fun
     * Later during model building, the training data (i.e. not the data kept back) will be split using [sklearn `train_test_split()`](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html).
 <br />
 
-* One Class SVM
-    * Anomaly detection is used to generate a short list of likely candidate contaminant species.
-    * Separate anomaly detection models are trained for centrifuge and HS-BLASTn results.
-    * Important feature selection is completed using [featurewiz](https://github.com/AutoViML/featurewiz).
-    * Featurewiz helps to account for useless and highly correlated features.
-    * Labels for true positives are identified by comparing sample name against predicted species with a dictionary:
-    ```
-    species = {"Minute virus":"MVM"}
-    ```
-    * Other species that do not meet this check are labelled as "False_positive"; this is only done in the training where the labels are known, for novel samples everything is labelled as "negative" and the One Class SVM models which species are most likely to be adventitious agent candidates.
-    * The appropriate database is stated for training purposes; the first test will be completed against the unused databases for training, e.g.:
-    ```
-    training_db = {"cviral":"virus", "virus": "virus"}
-    ```
-    Where the unused databases would be: ```{"filter_bacteria": "bacteria", "fungal_all": "fungus"}```
-    * Model used is described below:
-    ```
-    classifier = OneClassSVM(kernel = 'rbf', gamma = 0.1, nu = positives)
-    ````
-    * train_test_split()
-    ```
-    train_test_split(false_positives_clean, indices, test_size=0.2, random_state = 736)
-    ```
-    * Predicted outliers are retained from the model.
-    * For centrifuge selected species, a subset are taken by selecting the ten highest values (per database) from feature `numUniqueReads`
-    * For HS-BLASTn selected species, a subset are taken by selecting the ten highest values (per database) from feature `length_count`
-    * Results from the model run on each databases are concatenated into a single dataframe that is passed to the gradient boosting classifiers.
-<br />
-
 * Label choice
     * Binary classifiers were designed to handle the classification of the subset adventitious agent candidates into (1) contaminated sample and (2) genuine contaminant predictions.
     * Label encoding was as follows:
