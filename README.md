@@ -21,20 +21,11 @@ The pipeline is composed of three tools: metagenomic classification pipeline, re
 
 Run Pipeline -  Example run commands for metagenomic pipeline for bacterial, fungal and viral databases
 ```
-/SMART-CAMP/mp_metagenomic_assessment_v4.py -d /path/to/data/  
-    -t 20 -ci /location/of/Centrifuge_libraries/ -c -qf 
-    -cl "fungal_all" -bl "fungal_all" -m -rs 1 
-    -fd "/SMART-CAMP/configs/viral_examples.txt" 
-
-/SMART-CAMP/mp_metagenomic_assessment_v4.py -d /path/to/data/  
-    -t 20 -ci /location/of/Centrifuge_libraries/ -c -qf 
-    -cl "virus" -bl "cviral" -m -rs 1 
-    -fd "/SMART-CAMP/configs/viral_examples.txt" 
-
-/SMART-CAMP/mp_metagenomic_assessment_v4.py -d /path/to/data/  
-    -t 20 -ci /location/of/Centrifuge_libraries/ -c -qf 
-    -cl "16S_23S" -bl "filter_bacteria" -m -rs 1 
-    -fd "/SMART-CAMP/configs/viral_examples.txt" 
+/adventitious-pipeline/mp_metagenomic_assessment_v4.py -d /path/to/data/  
+    -t 10 -ci /location/of/Centrifuge_libraries/ -c -qf 
+    -bl "v_f_b" -m -rs 1 
+    -fd "/adventitious-pipeline/configs/viral_examples.txt" 
+    -hn "TC,Jurkat"
 ```
 <br /><br />
 
@@ -45,7 +36,7 @@ Run Pipeline -  Example run commands for metagenomic pipeline for bacterial, fun
 <br />
  	
 ~~~~
-/SMART-CAMP/run_nanostat_analyses.py -d /path/to/data/ -t 10 -e "/SMART-CAMP/configs/viral_examples.txt" 
+/adventitious-pipeline/run_nanostat_analyses.py -d /path/to/data/ -t 10 -e "/adventitious-pipeline/configs/viral_examples.txt" 
 ~~~~
 
 <br /><br />
@@ -63,7 +54,7 @@ Run Pipeline -  Example run commands for metagenomic pipeline for bacterial, fun
     * Rows with NaN value for read quality are dropped.
     * Databases used are defined by a BLAST:centrifuge dictionary key:value pair: 
     ```
-    database_dict = {"cviral": "virus", "filter_bacteria": "bacteria", "fungal_all": "fungus", "virus": "virus"}
+    database_dict = {"v_f_b":"v_f_b"}
     ```
 <br />
 
@@ -73,53 +64,18 @@ Run Pipeline -  Example run commands for metagenomic pipeline for bacterial, fun
     * Later during model building, the training data (i.e. not the data kept back) will be split using [sklearn `train_test_split()`](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html).
 <br />
 
-* One Class SVM
-    * Anomaly detection is used to generate a short list of likely candidate contaminant species.
-    * Separate anomaly detection models are trained for centrifuge and HS-BLASTn results.
-    * Important feature selection is completed using [featurewiz](https://github.com/AutoViML/featurewiz).
-    * Featurewiz helps to account for useless and highly correlated features.
-    * Labels for true positives are identified by comparing sample name against predicted species with a dictionary:
-    ```
-    species = {"Minute virus":"MVM"}
-    ```
-    * Other species that do not meet this check are labelled as "False_positive"; this is only done in the training where the labels are known, for novel samples everything is labelled as "negative" and the One Class SVM models which species are most likely to be adventitious agent candidates.
-    * The appropriate database is stated for training purposes; the first test will be completed against the unused databases for training, e.g.:
-    ```
-    training_db = {"cviral":"virus", "virus": "virus"}
-    ```
-    Where the unused databases would be: ```{"filter_bacteria": "bacteria", "fungal_all": "fungus"}```
-    * Model used is described below:
-    ```
-    classifier = OneClassSVM(kernel = 'rbf', gamma = 0.1, nu = positives)
-    ````
-    * train_test_split()
-    ```
-    train_test_split(false_positives_clean, indices, test_size=0.2, random_state = 736)
-    ```
-    * Predicted outliers are retained from the model.
-    * For centrifuge selected species, a subset are taken by selecting the ten highest values (per database) from feature `numUniqueReads`
-    * For HS-BLASTn selected species, a subset are taken by selecting the ten highest values (per database) from feature `length_count`
-    * Results from the model run on each databases are concatenated into a single dataframe that is passed to the gradient boosting classifiers.
-<br />
-
 * Label choice
     * Binary classifiers were designed to handle the classification of the subset adventitious agent candidates into (1) contaminated sample and (2) genuine contaminant predictions.
     * Label encoding was as follows:
-    * (1) `True_positive: 0, True_negative: 1`.
+    * (1) `True_positive: 1, True_negative: 0`.
     * (2) `False_positive: 0, True_positive: 1`.
-    * Both CatBoost Classifier and XGBoost Classifier models were used for training, testing, and evaluation.
+    * XGBoost Classifier model was used for training, testing, and evaluation.
     * Quality control is assessed using receiver operating characteristic curves alongside cross validation (`cv=5, scoring='accuracy'`), confusion matrices and classification reports. 
 <br />
 
-* XGBoost Classifer & Catboost Classifier - Binary classification - two questions posed:
+* XGBoost Classifer - Binary classification - two questions posed:
     * Is the sample contaminated?
      ```
-     CatBoostClassifier(n_estimators=500,
-                                    learning_rate=0.5,
-                                    max_depth=4,
-                                    l2_leaf_reg = 5,
-                                    silent=True)
-
      XGBClassifier(random_state = 736, 
                                     alpha = 0, 
                                     gamma = 0, 
@@ -131,12 +87,6 @@ Run Pipeline -  Example run commands for metagenomic pipeline for bacterial, fun
 
     * Is the predicted contaminant a genuine adventitious agent?
     ```
-    CatBoostClassifier(n_estimators=500,
-                                    learning_rate=0.5,
-                                    max_depth=5,
-                                    l2_leaf_reg = 5,
-                                    silent=True)
-
     XGBClassifier(random_state = 736, 
                                     alpha = 0, 
                                     gamma = 0.001, 
@@ -155,8 +105,7 @@ Run Pipeline -  Example run commands for metagenomic pipeline for bacterial, fun
     <br />
 * Evaluation
     *  The process described for training and testing datasets is replicated for the evaluation dataset, which are unseen by the model.
-    *  This first step is to subset the most likely contaminants using the One Class SVM.
-    *  The next step is to run these candidates through the CatBoost and XGBoost Classifier models.
+    *  Run the candidates through the XGBoost Classifier model.
     *  Important features are imported for the model.
     *  The standard scaler and machine learning model are imported to run on the evaluation dataset.
     *  Evaluation predictions are compared against the true mask for these samples to score accuracy.
