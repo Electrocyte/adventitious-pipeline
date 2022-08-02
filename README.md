@@ -21,20 +21,13 @@ The pipeline is composed of three tools: metagenomic classification pipeline, re
 
 Run Pipeline -  Example run commands for metagenomic pipeline for bacterial, fungal and viral databases
 ```
-/SMART-CAMP/mp_metagenomic_assessment_v4.py -d /path/to/data/  
-    -t 20 -ci /location/of/Centrifuge_libraries/ -c -qf 
-    -cl "fungal_all" -bl "fungal_all" -m -rs 1 
-    -fd "/SMART-CAMP/configs/viral_examples.txt" 
+/adventitious-pipeline/mp_metagenomic_assessment_v4.py -d /path/to/data/  
+    -t 10 -ci /location/of/Centrifuge_libraries/ -c -qf 
+    -bl "v_f_b" -m -rs 1 
+    -fd "/adventitious-pipeline/configs/viral_examples.txt" 
+    -hn "TC,Jurkat"
 
-/SMART-CAMP/mp_metagenomic_assessment_v4.py -d /path/to/data/  
-    -t 20 -ci /location/of/Centrifuge_libraries/ -c -qf 
-    -cl "virus" -bl "cviral" -m -rs 1 
-    -fd "/SMART-CAMP/configs/viral_examples.txt" 
 
-/SMART-CAMP/mp_metagenomic_assessment_v4.py -d /path/to/data/  
-    -t 20 -ci /location/of/Centrifuge_libraries/ -c -qf 
-    -cl "16S_23S" -bl "filter_bacteria" -m -rs 1 
-    -fd "/SMART-CAMP/configs/viral_examples.txt" 
 ```
 <br /><br />
 
