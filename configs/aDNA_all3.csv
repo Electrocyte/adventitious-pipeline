@@ -1,0 +1,13 @@
+date,NA,strain,concentration_CFU,batch,duration_h,Flowcell_no,Sample_original,Identifier,Barcode,Total_cycles,Spike_species,Kit
+20220420,aDNA,Bsubtilis-1-16S,10CFU,823,18,37,guppy-demux,S8B23,barcode01,29,Bacillus subtilis,RAB204
+20220420,aDNA,Bsubtilis-2-16S,10CFU,823,18,37,guppy-demux,S8B23,barcode02,29,Bacillus subtilis,RAB204
+20220420,aDNA,Bsubtilis-3-16S,10CFU,823,18,37,guppy-demux,S8B23,barcode03,29,Bacillus subtilis,RAB204
+20220420,aDNA,Bsubtilis-1-16S,100CFU,823,18,37,guppy-demux,S8B23,barcode04,29,Bacillus subtilis,RAB204
+20220420,aDNA,Bsubtilis-2-16S,100CFU,823,18,37,guppy-demux,S8B23,barcode05,29,Bacillus subtilis,RAB204
+20220420,aDNA,Bsubtilis-3-16S,100CFU,823,18,37,guppy-demux,S8B23,barcode06,29,Bacillus subtilis,RAB204
+20220420,aDNA,TC-Bsubtilis-1-16S,10CFU,823,18,37,guppy-demux,S8B23,barcode07,29,Bacillus subtilis,RAB204
+20220420,aDNA,TC-Bsubtilis-2-16S,10CFU,823,18,37,guppy-demux,S8B23,barcode08,29,Bacillus subtilis,RAB204
+20220420,aDNA,TC-Bsubtilis-3-16S,10CFU,823,18,37,guppy-demux,S8B23,barcode09,29,Bacillus subtilis,RAB204
+20220420,aDNA,TC-Bsubtilis-1-16S,100CFU,823,18,37,guppy-demux,S8B23,barcode10,29,Bacillus subtilis,RAB204
+20220420,aDNA,TC-Bsubtilis-2-16S,100CFU,823,18,37,guppy-demux,S8B23,barcode11,29,Bacillus subtilis,RAB204
+20220420,aDNA,TC-Bsubtilis-3-16S,100CFU,823,18,37,guppy-demux,S8B23,barcode12,29,Bacillus subtilis,RAB204

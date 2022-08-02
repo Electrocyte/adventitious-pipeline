@@ -1,0 +1,3 @@
+/SequencingData/Direct_RNA/analysis/Unfilt_1_500/filtered/, 1, 1
+/SequencingData/Direct_RNA/analysis/Filt_1_500/filtered/, 1, 2
+/SequencingData/Direct_RNA/analysis/Unfilt_1_50000/filtered/, 1, 3

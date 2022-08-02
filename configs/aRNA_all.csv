@@ -1,0 +1,24 @@
+﻿date,NA,strain,concentration_CFU,batch,duration_h,Flowcell_no,Sample_original,Identifier,Barcode,Total_cycles,Spike_species
+20200908,aRNA,PAO1filtTCPA,1020000CFU,1,18,10,Filtered 1:500 TC/PA RNA,S6B1,barcode01,27,Pseudomonas aeruginosa
+20200908,aRNA,PAO1unfiltTCPA,1020000CFU,1,18,10,Unfiltered 1:500 TC/PA RNA,S6B1,barcode02,27,Pseudomonas aeruginosa
+20200908,aRNA,PAO1filtTCPA,102000CFU,1,18,10,Filtered 1:5000 TC/PA RNA,S6B1,barcode03,27,Pseudomonas aeruginosa
+20200908,aRNA,PAO1filtTCPA,10200CFU,1,18,10,Filtered 1:50000 TC/PA 1 RNA,S6B1,barcode04,27,Pseudomonas aeruginosa
+20200908,aRNA,PAO1filtTCPA,10200CFU,2,18,10,Filtered 1:50000 TC/PA 2 RNA,S6B1,barcode05,27,Pseudomonas aeruginosa
+20200908,aRNA,PAO1filtTCPA,10200CFU,3,18,10,Filtered 1:50000 TC/PA 3 RNA,S6B1,barcode06,27,Pseudomonas aeruginosa
+20200908,aRNA,PAO1unfiltTCPA,102000CFU,1,18,10,Unfiltered 1:5000 TC/PA RNA,S6B1,barcode07,27,Pseudomonas aeruginosa
+20200908,aRNA,PAO1unfiltTCPA,10200CFU,1,18,10,Unfiltered 1:50000 TC/PA 1 RNA,S6B1,barcode08,27,Pseudomonas aeruginosa
+20200908,aRNA,PAO1unfiltTCPA,10200CFU,2,18,10,Unfiltered 1:50000 TC/PA 2 RNA,S6B1,barcode09,27,Pseudomonas aeruginosa
+20200908,aRNA,PAO1unfiltTCPA,10200CFU,3,18,10,Unfiltered 1:50000 TC/PA 3 RNA,S6B1,barcode10,27,Pseudomonas aeruginosa
+20200909,aRNA,PAO1filtTCPA,1020000CFU,1,24,10,Filtered 1:500 TC/PA RNA,S6B2,barcode01,36,Pseudomonas aeruginosa
+20200909,aRNA,PAO1filtTCPA,102000CFU,1,24,10,Filtered 1:5000 TC/PA RNA,S6B2,barcode02,36,Pseudomonas aeruginosa
+20200909,aRNA,PAO1filtTCPA,10200CFU,1,24,10,Filtered 1:50000 TC/PA 1 RNA,S6B2,barcode03,36,Pseudomonas aeruginosa
+20200909,aRNA,PAO1filtTCPA,10200CFU,2,24,10,Filtered 1:50000 TC/PA 2 RNA,S6B2,barcode04,36,Pseudomonas aeruginosa
+20200909,aRNA,PAO1filtTCPA,10200CFU,3,24,10,Filtered 1:50000 TC/PA 3 RNA,S6B2,barcode05,36,Pseudomonas aeruginosa
+20200909,aRNA,PAO1unfiltTCPA,1020000CFU,1,24,10,Unfiltered 1:500 TC/PA RNA,S6B2,barcode06,36,Pseudomonas aeruginosa
+20200909,aRNA,PAO1unfiltTCPA,102000CFU,1,24,10,Unfiltered 1:5000 TC/PA RNA,S6B2,barcode07,36,Pseudomonas aeruginosa
+20200909,aRNA,PAO1unfiltTCPA,10200CFU,1,24,10,Unfiltered 1:50000 TC/PA 1 RNA,S6B2,barcode08,36,Pseudomonas aeruginosa
+20200909,aRNA,PAO1unfiltTCPA,10200CFU,2,24,10,Unfiltered 1:50000 TC/PA 2 RNA,S6B2,barcode09,36,Pseudomonas aeruginosa
+20200909,aRNA,PAO1unfiltTCPA,10200CFU,3,24,10,Unfiltered 1:50000 TC/PA 3 RNA,S6B2,barcode10,36,Pseudomonas aeruginosa
+20200812,aRNA,PAO1unfiltDirectTCPA,10200000CFU,1,20,9,Unfiltered 1:50 direct TC/PA RNA,S5B1,barcode07,27,Pseudomonas aeruginosa
+20200812,aRNA,PAO1unfilt600gTCPA,10200000CFU,1,20,9,Unfiltered 1:50 600g TC/PA RNA,S5B1,barcode08,27,Pseudomonas aeruginosa
+20200812,aRNA,PAO1unfilt8000gTCPA,10200000CFU,1,20,9,Unfiltered 1:50 8000g TC/PA RNA,S5B1,barcode09,27,Pseudomonas aeruginosa

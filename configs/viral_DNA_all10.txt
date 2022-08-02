@@ -1,0 +1,4 @@
+20220727_DNA_PCV-10vg-1Jurkat-g-tube_100CFU_35_36
+20220727_DNA_PCV-10vg-1Jurkat-g-tube-nuclease60_100CFU_35_36
+20220727_DNA_PCV-10vg-1Jurkat-nuclease60_100CFU_35_36
+20220727_DNA_PCV-10vg-1Jurkat-no-treatment_100CFU_35_36

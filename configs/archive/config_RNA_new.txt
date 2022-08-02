@@ -1,0 +1,4 @@
+/SequencingData/Direct_RNA/analysis/20210202_RNA_PAO1_410000000CFU_1st_2h/trimmed/
+/SequencingData/Direct_RNA/analysis/20210202_RNA_PAO1_41000000CFU_1st_2h/trimmed/
+/SequencingData/Direct_RNA/analysis/20210202_RNA_PAO1_41000CFU_1st_12h/trimmed/
+/SequencingData/Direct_RNA/analysis/20210202_RNA_PAO1_410CFU_1st_12h/trimmed/
