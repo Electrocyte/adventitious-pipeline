@@ -1,0 +1,36 @@
+# INSTALL KRAKENUNIQ
+git clone https://github.com/fbreitwieser/krakenuniq
+cd krakenuniq
+mkdir krakenuniq
+./install_krakenuniq.sh -j krakenuniq/
+
+# INSTALL CENTRIFUGE
+git clone https://github.com/infphilo/centrifuge
+cd centrifuge
+make
+sudo make install prefix=/usr/local
+
+# may require
+mkdir blast
+cd blast
+wget ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/ncbi-blast-2.10.1+-x64-linux.tar.gz
+echo $PATH
+tar -xvzf ncbi-blast-2.10.1+-x64-linux.tar.gz
+ls /usr/local/bin
+sudo mv ncbi-blast-2.10.1+/bin/* /usr/local/bin/
+cd
+rm -rf blast
+
+# INSTALL PORECHOP
+git clone https://github.com/rrwick/Porechop.git
+cd Porechop
+python3 setup.py install
+porechop -h
+
+# INSTALL QCAT
+sudo pip3 install qcat
+
+# INSTALL HS-BLASTn
+git clone https://github.com/chenying2016/queries.git
+cd hs-blastn-src
+make
