@@ -75,7 +75,7 @@ def draw_heatmap(fw_heatmap_df: pd.DataFrame,
 from sklearn.model_selection import cross_val_score
 import statistics
 from sklearn.metrics import classification_report, confusion_matrix
-# from sklearn.metrics import accuracy_score, recall_score, precision_score
+from sklearn.metrics import accuracy_score, recall_score, precision_score
 
 
 def evaluate_model_performance(y_pred, 
@@ -116,7 +116,7 @@ def evaluate_model_performance(y_pred,
     # Sensitivity
     sensitivity = TP / float(FN + TP)
     print(f"Sensitivity: {sensitivity:.2f}")
-    # print(f"Sensitivity: {recall_score(y_test, y_pred):.2f}")
+    print(f"Sensitivity: {recall_score(y_test, y_pred):.2f}")
     # Specificity
     specificity = TN / (TN + FP)
     print(f"Specificity: {specificity:.2f}")
@@ -169,7 +169,9 @@ def load_in_data(
         "ReadlengthN50",
         "Totalbases",
     ]
+
     for n_col in nano_cols:
+        Nanoplot_df[n_col] = Nanoplot_df[n_col].astype(str)
         Nanoplot_df[n_col] = Nanoplot_df[n_col].str.replace(",", "").astype(float)
     full_nano_cols = [
         "Activechannels",
@@ -304,6 +306,7 @@ def prepare_data_sample(true_mask: dict,
 
     def custom_label_encoder(encoding_dict: dict, row: int):
         for name, encoded in encoding_dict.items():
+            # print(name , row["sample_true_mask"])
             if name in row["sample_true_mask"]:
                 return encoded
     
@@ -359,10 +362,11 @@ def prepare_data_sample(true_mask: dict,
     return true_mask_df_merge
 
 
-def debug_true_labels(XGB_out: str,
-                      df: pd.DataFrame):
-    json_mask = "2022-07.json"
-    json_file = f"{XGB_out}{json_mask}"
+def debug_true_labels(df: pd.DataFrame,
+                      json_mask: str,
+                      json_dir: str):
+    # json_mask = "2022-07.json"
+    json_file = f"{json_dir}{json_mask}"
     
     with open(json_file) as json_data:
         true_mask = json.loads(json_data.read())
@@ -387,9 +391,13 @@ def run_unseen_sample_analysis(metagenome_classifier_used: str,
                                XGB_out: str, 
                                id_cols: list,
                                debug: bool,
-                               unseen_df: pd.DataFrame) -> Tuple[pd.DataFrame, 
+                               unseen_df: pd.DataFrame,
+                               json_mask: str,
+                               unseen_dir: str,
+                               json_dir: str,
+                               run_gridsearch: bool) -> Tuple[pd.DataFrame, 
                                                                  pd.DataFrame]:
-
+    print(f"{XGB_out}/feature-wiz-xgboost-features-{vees}-{metagenome_classifier_used}-sample-status.json")                                                         
     with open(
         f"{XGB_out}/feature-wiz-xgboost-features-{vees}-{metagenome_classifier_used}-sample-status.json"
     ) as json_sample_XGB:
@@ -398,11 +406,15 @@ def run_unseen_sample_analysis(metagenome_classifier_used: str,
     sc = pickle.load(open(f"{XGB_out}/sc-sample-status-XGB-scaler-{metagenome_classifier_used}.pkl", "rb"))
     
     filename_save = f"xgboost_sample_status-{metagenome_classifier_used}.sav"
+    
     XGB_model_save = f"{XGB_out}/{filename_save}"
     
     if Path(XGB_model_save).is_file():
         XGB_classifier_model = pickle.load(open(XGB_model_save, "rb"))
-    
+
+        if run_gridsearch:
+            XGB_classifier_model = pickle.load(open(f"{XGB_out}/gs-xgb-ss-{metagenome_classifier_used}.sav", "rb"))    
+        
         unseen_fw_df = unseen_df[feat_labels]
         
         if debug:
@@ -433,12 +445,11 @@ def run_unseen_sample_analysis(metagenome_classifier_used: str,
         
         # Get predicted probabilities for each class
         # y_preds_proba = XGB_classifier_model.predict_proba(X_eval)   
-    
+        encoding_dict = {"True_negative": 0, "True_positive": 1}
+            
         if debug:
     
-            encoding_dict = {"True_negative": 0, "True_positive": 1}
-            
-            y_mask = debug_true_labels(XGB_out, feature_wiz_df)
+            y_mask = debug_true_labels(feature_wiz_df, json_mask, json_dir)
             
             # json_mask = "2022-07.json"
             # json_file = f"{XGB_out}{json_mask}"
@@ -539,7 +550,9 @@ def run_unseen_genuine_analysis(metagenome_classifier_used: str,
                                id_cols: list,
                                debug: bool,
                                unseen_df: pd.DataFrame,
-                               sample_status: pd.DataFrame) -> Tuple[pd.DataFrame, 
+                               sample_status: pd.DataFrame,
+                               species: dict,
+                               run_gridsearch: bool) -> Tuple[pd.DataFrame, 
                                                                  pd.DataFrame]:
     with open(
         f"{XGB_out}/feature-wiz-xgboost-features-{vees}-genuine-contaminant-{metagenome_classifier_used}.json"
@@ -573,6 +586,9 @@ def run_unseen_genuine_analysis(metagenome_classifier_used: str,
     
     if Path(XGB_model_save).is_file():
         XGB_classifier_model = pickle.load(open(XGB_model_save, "rb"))
+        
+        if run_gridsearch:
+            XGB_classifier_model = pickle.load(open(f"{XGB_out}/gs-xgb-cs-{metagenome_classifier_used}.sav", "rb"))    
     
         unseen_fw_df = feature_wiz_df[feat_labels]
         
@@ -604,15 +620,15 @@ def run_unseen_genuine_analysis(metagenome_classifier_used: str,
         y_pred = XGB_classifier_model.predict(X_eval)
         
         # Get predicted probabilities for each class
-        y_preds_proba = XGB_classifier_model.predict_proba(X_eval)   
+        # y_preds_proba = XGB_classifier_model.predict_proba(X_eval)   
         encoding_dict = {"False_positive": 0, "True_positive": 1}
         
         if debug:
             # investigate samples ONLY IF THE MASK IS KNOWN
-            species = {"Pseudomonas aeruginosa":["PA", "9027"], "Cutibacterium acnes":["Cacnes","Pacnes"], \
-                        "Escherichia coli":["EC"], "Klebsiella pneumoniae":["Klebpneu"], \
-                          "Candida":["Calbicans"], "Staphylococcus aureus":["Saureus"], \
-                            "Bacillus subtilis": ["Bsubtilis"]}
+            # species = {"Pseudomonas aeruginosa":["PA", "9027"], "Cutibacterium acnes":["Cacnes","Pacnes"], \
+            #             "Escherichia coli":["EC"], "Klebsiella pneumoniae":["Klebpneu"], \
+            #               "Candida":["Calbicans"], "Staphylococcus aureus":["Saureus"], \
+            #                 "Bacillus subtilis": ["Bsubtilis"], "Clostridium": ["clost"]}
             masked_df = apply_mask(feature_wiz_df, species)
             
             def custom_contaminant_label_encoder(encoding_dict: dict, row: int):

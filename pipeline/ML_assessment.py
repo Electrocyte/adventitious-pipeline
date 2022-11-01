@@ -9,7 +9,6 @@ Created on Tue Jul 26 13:13:01 2022
 import math    
 import pandas as pd
 import numpy as np
-
 from functools import partial
 
 
@@ -36,7 +35,7 @@ def calculate_classification_accuracy_interval(acc: float,
         plus_ci = acc*100 + e_interval*100
         nega_ci = acc*100 - e_interval*100
         print(f"\nConfidence interval is {acc*100:.2f}% +/- {e_interval*100:.2f}% [{nega_ci:.2f} : {plus_ci:.2f}], at {percent_ci} confidence; Data type: {_type_}; Metagenomic classifier: {mg}.")
-
+    print("\n")
 
 
 def make_decision(row):
@@ -154,7 +153,10 @@ def sample_decision(row):
         and not pd.isna(row["True_negative"])
         and not pd.isna(row["True_positive"])
     ):
-        return "Contaminated"
+        if row["True_negative"] > row["True_positive"] and row["False_positive"] > row["True_positive"]:
+            return "Sterile"
+        else:
+            return "Contaminated"
     # TPs, FPs, FNs
     elif (
         pd.isna(row["True_negative"])
@@ -201,7 +203,7 @@ def generate_decision_df(df: pd.DataFrame) -> pd.DataFrame:
     if "False_negative" not in decision_pivot.columns:
         decision_pivot["False_negative"] = np.nan
     if "True_negative" not in decision_pivot.columns:
-        decision_pivot["True_negative"] = np.nan()
+        decision_pivot["True_negative"] = np.nan
     if "True_positive" not in decision_pivot.columns:
         decision_pivot["True_positive"] = np.nan
         
@@ -216,9 +218,23 @@ def check_tts_status(row):
         return "TRUE-eval"
     if row["Dec_Correct"] == False and row["sample-status"] == "eval":
         return "FALSE-eval"
+    if row["Dec_Correct"] == True and row["sample-status"] == "unknowns":
+        return "TRUE-unknowns"
+    if row["Dec_Correct"] == False and row["sample-status"] == "unknowns":
+        return "FALSE-unknowns"
 
 
-def calculate_twin_model_accuracy(df: pd.DataFrame, mg: str) -> (pd.DataFrame, pd.DataFrame):
+def get_cleaned_data(samp_df: pd.DataFrame, genu_df: pd.DataFrame) -> pd.DataFrame:
+    req_columns=['sample', 'name', 'sample_true_mask', 'XGB_sample_prediction', 'sample-status']
+    req_columns2=['gen-samp', 'gen-name', 'mask', 'XGB_gen_con_prediction', 'gen-con-pred-correct']
+    genuine_status_ce = genu_df.rename(columns = {'name':'gen-name','sample':'gen-samp','XGB_genuine_prediction':'XGB_gen_con_prediction', 'Correct':'gen-con-pred-correct'})
+    samp_clean = samp_df[req_columns]
+    genu_clean = genuine_status_ce[req_columns2]
+    model_compare_df = pd.concat([samp_clean, genu_clean], axis = 1)
+    return model_compare_df
+
+
+def calculate_twin_model_accuracy(df: pd.DataFrame, mg: str, _type_: str) -> (pd.DataFrame, pd.DataFrame):
     encoding_dict = {"True_negative": 0, "True_positive": 1}
     encoding_dict_rev = {value: key for (key, value) in encoding_dict.items()}
     eval_gen_con_status = df.replace({"XGB_sample_prediction": encoding_dict_rev})
@@ -229,8 +245,9 @@ def calculate_twin_model_accuracy(df: pd.DataFrame, mg: str) -> (pd.DataFrame, p
     
     eval_gen_con_status["check-tts-status-decision"] = eval_gen_con_status.apply(check_tts_status, axis=1)
     
-    cg_acc_dec = calculate_accuracy(eval_gen_con_status, "check-tts-status-decision", "evaluation-sample-genuine", mg)
-    calculate_classification_accuracy_interval(cg_acc_dec, eval_gen_con_status, "evaluation-sample-genuine", mg)
+    cg_acc_dec = calculate_accuracy(eval_gen_con_status, "check-tts-status-decision", f"{_type_}-sample-genuine", mg)
+    
+    calculate_classification_accuracy_interval(cg_acc_dec, eval_gen_con_status, f"{_type_}-sample-genuine", mg)
     
     decision_pivot = generate_decision_df(eval_gen_con_status)
     

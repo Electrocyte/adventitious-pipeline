@@ -10,6 +10,7 @@ Created on Tue Jun 21 11:28:04 2022
 
 from pathlib import Path
 import pandas as pd
+import json
 import numpy as np
 from functools import partial
 import seaborn as sns
@@ -166,7 +167,10 @@ def subset_samples(df1: pd.DataFrame, df2: pd.DataFrame, df3: pd.DataFrame, \
 
 def assess_quality(directory: str, BLASTn_name: str, 
                               kingdom: str, independent_var: str,
-                              species: dict, plot: bool) -> None:    
+                              species: dict, plot: bool,
+                              _ML_out_: str,
+                              new_samples: int,
+                              json_mask: str, json_dir: str) -> (list, list):    
 
     def clean_strings(string: str, cut_off: int) -> str:
         # from string import whitespace
@@ -193,6 +197,34 @@ def assess_quality(directory: str, BLASTn_name: str,
         
         return new_string
     
+    
+    def only_current_samples(json_mask: str, 
+                             json_dir: str,
+                             BLAST_df: pd.DataFrame,
+                             Centrifuge_df: pd.DataFrame) -> (pd.DataFrame, 
+                                                              pd.DataFrame, 
+                                                              list, int):
+        json_file = f"{json_dir}{json_mask}"
+        
+        with open(json_file) as json_data:
+            true_mask = json.loads(json_data.read())
+        
+        curr_samples = []
+        n = 0
+        for outer_k, outer_v in true_mask.items():
+            for inner_k, inner_v in outer_v.items():
+                if inner_v == "True_positive":
+                    n += 1
+                inner_k = inner_k.replace("CFU", "")
+                curr_samples.append(inner_k)
+        
+        BLAST_df = BLAST_df.loc[BLAST_df["sample"].isin(curr_samples)] 
+        BLAST_df.reset_index(inplace=True,drop=True)
+        Centrifuge_df = Centrifuge_df.loc[Centrifuge_df["sample"].isin(curr_samples)]
+        Centrifuge_df.reset_index(inplace=True,drop=True)
+        return BLAST_df, Centrifuge_df, curr_samples, n
+    
+    
     Nanoplot = f"{directory}/nanoplot_summary_data.csv"
     BLAST =      f"{directory}/describe_{BLASTn_name}_no_host_all_agg.csv"
     Centrifuge = f"{directory}/centrifuge_{kingdom}_describe_meta.csv"
@@ -200,7 +232,19 @@ def assess_quality(directory: str, BLASTn_name: str,
     full_nano_cols, Centrifuge_df, Nanoplot_df, BLAST_df = load_in_data(BLAST, Centrifuge, Nanoplot, kingdom, BLASTn_name)
     Centrifuge_df["strain"] = Centrifuge_df["sample"].str.split(r"_", expand=True)[2]
     BLAST_df['sample'] = BLAST_df['date'].astype(str)+"_"+BLAST_df['NA']+"_"+BLAST_df['strain']+"_"+BLAST_df['concentration_CFU'].astype(str)+"_"+BLAST_df['batch'].astype(str)+"_"+BLAST_df['duration_h'].astype(str)
-   
+    
+    if new_samples > 0:
+        BLAST_df_samples = [x for x in BLAST_df["sample"].unique() if int(x.split("_")[0]) > new_samples]
+        BLAST_df = BLAST_df.loc[BLAST_df['sample'].isin(BLAST_df_samples)]
+        Centrifuge_df_samples = [x for x in Centrifuge_df["sample"].unique() if int(x.split("_")[0]) > new_samples]
+        Centrifuge_df = Centrifuge_df.loc[Centrifuge_df['sample'].isin(Centrifuge_df_samples)]
+
+    ####################
+    
+    BLAST_df, Centrifuge_df, curr_samples, true_pos = only_current_samples(json_mask, json_dir, BLAST_df, Centrifuge_df)
+
+    ####################
+    
     a_before_ce, ce_bef_df = check_TPs(Centrifuge_df, species)    
     a_before_hs, hs_bef_df = check_TPs(BLAST_df, species)
 
@@ -232,26 +276,17 @@ def assess_quality(directory: str, BLASTn_name: str,
 
     Centrifuge_df["abundance"] = Centrifuge_df["numUniqueReads"] / Centrifuge_df["totalUniqReads"]
     ce_fps = Centrifuge_df.loc[~Centrifuge_df.index.isin(ce_bef_df.index)]   
-    # ce_fps = ce_fps.loc[ce_fps["abundance"] >= 1e-5]
     
     # only examine amplified DNA
     ce_bef_df["abundance"] = ce_bef_df["numUniqueReads"] / ce_bef_df["totalUniqReads"]
     ce_bef_df = ce_bef_df.loc[ce_bef_df["sample"].str.contains(independent_var)]
-    # ce_bef_df = ce_bef_df.loc[ce_bef_df["abundance"] >= 1e-5]
     
     ce_fps = ce_fps.loc[ce_fps["sample"].str.contains(independent_var)]    
     
     c_fpshort = ce_fps.loc[(ce_fps["score_mean"] < 900)]
-    # c_fpshort = c_fpshort.loc[(c_fpshort["abundance"] >= 1e-5)]
-    
     c_fplong = ce_fps.loc[(ce_fps["score_mean"] >= 900)]
-    # c_fplong = c_fplong.loc[(c_fplong["abundance"] >= 1e-5)]
-    
     c_tpshort = ce_bef_df.loc[(ce_bef_df["score_mean"] < 900)]
-    # c_tpshort = c_tpshort.loc[(c_tpshort["abundance"] >= 1e-5)]
-    
-    c_tplong = ce_bef_df.loc[(ce_bef_df["score_mean"] >= 900)]
-    # c_tplong = c_tplong.loc[(c_tplong["abundance"] >= 1e-5)]    
+    c_tplong = ce_bef_df.loc[(ce_bef_df["score_mean"] >= 900)] 
     
     c_fp_means = pd.DataFrame(ce_fps.groupby(["sample"])["score_mean"].mean())
     c_tp_means = pd.DataFrame(ce_bef_df.groupby(["sample"])["score_mean"].mean())
@@ -275,7 +310,6 @@ def assess_quality(directory: str, BLASTn_name: str,
             
             plt.legend(
                 loc=0, prop={"size": 25}, markerscale=4, handles=[blue_patch, black_patch])
-                # ) bbox_to_anchor=(1.05, 0.75)
         
             ax.set_ylabel("Number of reads", size=40)
             ax.set_ylim([10, 100])
@@ -407,38 +441,96 @@ def assess_quality(directory: str, BLASTn_name: str,
             ax.tick_params(axis="x", labelsize=20)
             ax.tick_params(axis="y", labelsize=30)
             plt.show()
-        
+    
+    total_samples = len(curr_samples)
+    
     #################### CENTRIFUGE ####################
+    if len(ce_bef_df) == 0:
+        ce_bef_df = pd.DataFrame(data=[1])
     c_tp_per = (len(c_tpshort) / (len(ce_bef_df)))*100
     c_fp_per = (len(c_fpshort) / (len(ce_fps)))*100
-    c_lost_sample_tp_name = set(c_tp_means.index) - set(c_tplong["sample"].unique())
-    
-    z_tp_sample_lost = len(c_tpshort["sample"].unique())
-    z_actual_tps_lost = len(set(c_tpshort["sample"].unique()) - set(c_lost_sample_tp_name))
-    z_tp_sample_kept = len(c_tplong["sample"].unique())
-    z_total_tp = len(c_tp_means)
-    
-    samples_lost = z_tp_sample_kept / z_total_tp * 100
-    no_sa_lost = z_tp_sample_lost - z_actual_tps_lost
 
-    print(f"CENTRIFUGE - Total true SAMPLES retained: {samples_lost:.2f}%; or {no_sa_lost}/{z_total_tp} samples lost")    
+    z_tp_sample_kept = len(c_tplong["sample"].unique())
+    # z_total_tp = len(c_tp_means)
+    
+    samples_lost = z_tp_sample_kept / true_pos * 100
+    unique_ce_samples = Centrifuge_df['sample'].unique()
+    missing_ce = set(curr_samples) - set(unique_ce_samples)
+    ce_drop = total_samples - len(unique_ce_samples)
+
+    print(f"\nCENTRIFUGE - Total true SAMPLES retained: {samples_lost:.2f}%; or {z_tp_sample_kept}/{true_pos} samples retained")    
     print(f"TPs (total predicted spp) removed: {c_tp_per:.2f}%; \nFPs (total predicted spp) removed: {c_fp_per:.2f}")
-    #################### CENTRIFUGE ####################
+    print(f"Samples missing: {ce_drop}/{total_samples}; \n{list(missing_ce)}")
+    
+    #################### BLAST ####################
     
     h_tp_per = (len(h_tpshort) / (len(hs_bef_df)))*100
     h_fp_per = (len(h_fpshort) / (len(hs_fps)))*100
-    h_lost_sample_tp_name = set(c_tp_means.index) - set(c_tplong["sample"].unique())
-    
-    z_tp_sample_lost = len(h_tpshort["sample"].unique())
-    z_actual_tps_lost = len(set(h_tpshort["sample"].unique()) - set(h_lost_sample_tp_name))
-    z_tp_sample_kept = len(h_tplong["sample"].unique())
-    z_total_tp = len(h_tp_means)
-    
-    samples_lost = z_tp_sample_kept / z_total_tp * 100
-    no_sa_lost = z_tp_sample_lost - z_actual_tps_lost
 
-    print(f"BLAST - Total true SAMPLES retained: {samples_lost:.2f}%; or {no_sa_lost}/{z_total_tp} samples lost")    
+    z_tp_sample_kept = len(h_tplong["sample"].unique())
+    # z_total_tp = len(h_tp_means)
+    
+    samples_lost = z_tp_sample_kept / true_pos * 100
+    unique_hs_samples = BLAST_df['sample'].unique()
+    missing_hs = set(curr_samples) - set(unique_hs_samples)
+    BL_drop = total_samples - len(unique_hs_samples)
+    
+    print(f"BLAST - Total true SAMPLES retained: {samples_lost:.2f}%; or {z_tp_sample_kept}/{true_pos} samples retained")    
     print(f"TPs (total predicted spp) removed: {h_tp_per:.2f}%; \nFPs (total predicted spp) removed: {h_fp_per:.2f}")
+    print(f"Samples missing: {BL_drop}/{total_samples}; \n{list(missing_hs)}")
+    
+    return list(missing_hs), list(missing_ce)
+
+
+def label_kingdom_type(df: pd.DataFrame, github_loc: str, map_files: str, meta_type: str) -> pd.DataFrame:
+    seqidID_loc = f"{github_loc}/all_seqids.csv"
+    seqidID_df = pd.read_csv(seqidID_loc)
+    found_seqids = list(df[meta_type].unique())
+    seqids_present = seqidID_df.loc[seqidID_df["code"].isin(found_seqids)]
+    
+    # identify if viral, bacterial or fungal...
+    def get_map_taxid(map_files: str, k_type: str, seqids_present: pd.DataFrame) -> pd.DataFrame:
+        k_seqs = f"{map_files}/{k_type}.map"
+        k_seqidID_df = pd.read_csv(k_seqs, names = ["code", "name"], header=None, delimiter = "\t")
+        k_seqidID_df["name"] = k_seqidID_df["code"].str.split(" ", expand=True)[4]
+        k_seqidID_df["code"] = k_seqidID_df["code"].str.split(" ", expand=True)[0]
+        k_seqids_present = seqids_present.loc[seqids_present["code"].isin(k_seqidID_df["code"].unique())]
+        return k_seqids_present
+
+
+    def group_idx(seqids_present: pd.DataFrame, 
+                  kingdom_type: str, 
+                  group: pd.DataFrame,
+                  meta_type: str) -> pd.DataFrame:
+        all_idx = group.index
+        indices = group.loc[group[meta_type].isin(seqids_present["code"])].index  
+        other_idx = list(set(all_idx) - set(indices))
+
+        if len(indices) > 0:
+            group.loc[indices, f"{kingdom_type}_count"] = len(indices)
+        else:
+            group.loc[other_idx, f"{kingdom_type}_count"] = 0
+
+        if len(other_idx) > 0:
+            group.loc[other_idx, f"{kingdom_type}_count"] = 0
+            
+        return group
+           
+        
+    v_seqids_present = get_map_taxid(map_files, "viral_seqid2taxid", seqids_present)
+    f_seqids_present = get_map_taxid(map_files, "fungal_seqid2taxid2", seqids_present)
+    b_seqids_present = get_map_taxid(map_files, "bacteria_seqid2taxid", seqids_present)
+    
+    groups = []
+    for i, group in df.groupby(["sample"]):
+        group = group_idx(v_seqids_present, "viral", group, meta_type)
+        group = group_idx(f_seqids_present, "fungal", group, meta_type)
+        group = group_idx(b_seqids_present, "bacterial", group, meta_type)
+        groups.append(group)
+    cat_groups = pd.concat(groups)
+    short_cat = cat_groups[['sample','name','viral_count', 'fungal_count', 'bacterial_count']]
+    
+    return cat_groups
     
 
 def main(directory: str,
@@ -447,10 +539,12 @@ def main(directory: str,
         species: dict, 
         _ML_out_: str,
         subset: bool,
-        independent_var: str) -> (list, 
-                                  list, 
-                                  pd.DataFrame, 
-                                  pd.DataFrame):    
+        independent_var: str,
+        github_loc: str,
+        map_files: str) -> (list, 
+                            list, 
+                            pd.DataFrame, 
+                            pd.DataFrame):    
     
     Nanoplot = f"{directory}/nanoplot_summary_data.csv"
     
@@ -479,7 +573,10 @@ def main(directory: str,
         # check if this is the lowest value in other data sets
         BLAST_df = BLAST_df.loc[BLAST_df["pident_max"] > 83]
         BLAST_df.reset_index(drop=True,inplace=True)
-    
+        
+        BLAST_df = label_kingdom_type(BLAST_df, github_loc, map_files, "sseqid")
+        Centrifuge_df = label_kingdom_type(Centrifuge_df, github_loc, map_files, "seqID")
+        
         Centrifuge_df, BLAST_df = count_for_cols(Centrifuge_df, BLAST_df, "std", "std_nans")
         Centrifuge_df = value_added(Centrifuge_df, ["name", "sample"], "score_count")
         BLAST_df = value_added(BLAST_df, ["name", "sample"], "length_count")
@@ -514,7 +611,8 @@ def main(directory: str,
            'mean_qscore_template_count', 'mean_qscore_template_mean',
            'mean_qscore_template_std', 'mean_qscore_template_min',
            'mean_qscore_template_25%', 'mean_qscore_template_50%',
-           'mean_qscore_template_75%', 'mean_qscore_template_max', 
+           'mean_qscore_template_75%', 'mean_qscore_template_max',
+           'viral_count', 'fungal_count', 'bacterial_count',
            'std_nans', 'name-sample-count', 'vc-name-sample-fraction', 'read_qc',
            'Activechannels', 'Meanreadlength', 'Meanreadquality',
            'Medianreadlength', 'Medianreadquality', 'Numberofreads',
@@ -536,7 +634,8 @@ def main(directory: str,
            'mean_qscore_template_min', 'mean_qscore_template_25%',
            'mean_qscore_template_50%', 'mean_qscore_template_75%',
            'mean_qscore_template_max', 
-           'b_score', 'std_nans', 'name-sample-count',
+           'b_score', 'viral_count', 'fungal_count', 'bacterial_count', 
+           'std_nans', 'name-sample-count',
            'vc-name-sample-fraction', 'read_qc', 'Activechannels',
            'Meanreadlength', 'Meanreadquality', 'Medianreadlength',
            'Medianreadquality', 'Numberofreads', 'ReadlengthN50', 'Totalbases']
@@ -567,6 +666,71 @@ def main(directory: str,
         return hd_data_cols, cd_data_cols, cn_df, bn_df
 
 
+def data_aug(original_df: pd.DataFrame,
+             metagenome_classifier_used: str, 
+             XGB_out: str,
+             gauss_noise_bool: bool,
+             transforms: bool) -> pd.DataFrame:
+    
+    numerics = ['int16', 'int32', 'int64', 'float16', 'float32', 'float64']
+    df_numeric_cols = original_df.select_dtypes(include=numerics).columns
+    
+    size = original_df[df_numeric_cols].shape
+        
+    if gauss_noise_bool and not transforms:
+        mu, sigma = 0, 0.2
+        gauss_noise = np.random.normal(mu, sigma, [size[0], size[1]])
+        gauss_signal = original_df[df_numeric_cols] + gauss_noise
+        gauss_signal = gauss_signal.add_prefix('gauss_')
+        DA_cat = pd.concat([original_df, gauss_signal], axis = 1)
+    
+    if transforms and not gauss_noise_bool:
+        df_powers = np.power(original_df[df_numeric_cols], 2)
+        df_powers = df_powers.add_prefix('power_')
+        df_logs = np.log10(original_df[df_numeric_cols])
+        df_logs = df_logs.add_prefix('log_')
+        DA_cat = pd.concat([original_df, df_logs, df_powers], axis = 1)
+    
+    if transforms and gauss_noise_bool:   
+        mu, sigma = 0, 0.2
+        gauss_noise = np.random.normal(mu, sigma, [size[0], size[1]])
+        gauss_signal = original_df[df_numeric_cols] + gauss_noise
+        gauss_signal = gauss_signal.add_prefix('gauss_')
+        df_powers = np.power(original_df[df_numeric_cols], 2)
+        df_powers = df_powers.add_prefix('power_')
+        df_logs = np.log10(original_df[df_numeric_cols])
+        df_logs = df_logs.add_prefix('log_')        
+        DA_cat = pd.concat([original_df, gauss_signal, df_logs, df_powers], axis = 1)
+    
+    cols = list(set(original_df.columns) - set(df_numeric_cols))
+    extra_cols = list(set(DA_cat.columns) - set(df_numeric_cols) - set(cols))
+    
+    inf_col = list(DA_cat[extra_cols].columns.to_series()[np.isinf(DA_cat[extra_cols]).any()])
+    inf_idx = DA_cat[extra_cols].index[np.isinf(DA_cat[extra_cols]).any(1)]
+    DA_cat.loc[inf_idx, inf_col] = 0
+    
+    to_drop = ['gauss_sample-pred-TP','gauss_sample-pred-TN',
+               'power_sample-pred-TP','power_sample-pred-TN',
+               'log_sample-pred-TP','log_sample-pred-TN',
+               "gauss_mask-TP", "gauss_mask-FP",
+               "power_mask-TP", "power_mask-FP",
+               "log_mask-TP", "log_mask-FP",
+               'gauss_sample-pred-TP', 'gauss_sample-pred-FP',
+               'power_sample-pred-TP', 'power_sample-pred-FP',
+               'log_sample-pred-TP', 'log_sample-pred-FP',
+               "gauss_sample-mask-TP", "gauss_sample-mask-TN",
+               "power_sample-mask-TP", "power_sample-mask-TN",
+               "log_sample-mask-TP", "log_sample-mask-TN"]
+    for col in to_drop:
+        if col in DA_cat.columns:
+            print(col in DA_cat.columns, col)
+            DA_cat = DA_cat.drop(col, axis = 1)
+
+    DA_cat.to_csv(f"{XGB_out}/data-aug-{metagenome_classifier_used}-sample-status.csv", index=False)
+    
+    return DA_cat
+
+
 ################## DATA CLEANING ##################
 
 if __name__ == "__main__":
@@ -576,7 +740,7 @@ if __name__ == "__main__":
     kingdom = list(database_dict.values())[0]
     species = {"Pseudomonas aeruginosa":["PA"], "Cutibacterium acnes":["Cacnes","Pacnes"], \
             "Escherichia coli":["EC"], "Klebsiella pneumoniae":["Klebpneu"], \
-              "Candida albicans":["Calbicans"], "Staphylococcus aureus":["Saureus"], \
+              "Candida ":["Calbicans"], "Staphylococcus aureus":["Saureus"], \
                 "Bacillus subtilis": ["Bsubtilis"]}
     directory = "D:/SequencingData/Harmonisation/DNA/analysis"
     _ML_out_ = f"{directory}/ML_training-VFB/"
@@ -595,122 +759,11 @@ if __name__ == "__main__":
             _ML_out_,
             subset,
             independent_var)
-
+    json_mask = '2022-08-23.json'
+    json_dir = 'D:/Dropbox/AA SMART/fourier_data/'
+    new_samples = 0
     assess_quality(directory, BLASTn_name, 
                               kingdom, independent_var,
-                              species, False)
+                              species, False, _ML_out_,
+                              new_samples, json_mask, json_dir)
 
-
-
-
-# from nonconformist.icp import IcpClassifier, IcpRegressor
-# from nonconformist.nc import ClassifierNc, MarginErrFunc, ClassifierAdapter, RegressorNc, AbsErrorErrFunc
-# # import copy  
-
-# # https://towardsdatascience.com/how-to-add-uncertainty-estimation-to-your-models-with-conformal-prediction-a5acdb86ea05
-# def classifier_calibration_curve(estimator: XGBClassifier, 
-#                                  X: np.ndarray, 
-#                                  y: np.ndarray, 
-#                                  alphas =np.linspace(0,1,10, endpoint=True)):
-#     errors = []
-#     set_sizes = []
-#     for a in alphas:
-#         pred = estimator.predict(X, significance=a) # significance = p-value
-#         set_sizes.append(np.mean([np.sum(set__) for set__ in pred]))
-#         errors.append(1 - np.mean([set_[t] for set_, t in zip(pred, y)]))
-#     return errors, set_sizes
-
-
-# def classification_calibration_plot(dataset_used: str, 
-#                                     metagenome_classifier_used: str, 
-#                                     estimator: XGBClassifier, 
-#                                     X:  np.ndarray, 
-#                                     y:  np.ndarray, 
-#                                     _type_: str,
-#                                     alphas=np.linspace(0,1,10, endpoint=True)):
-#     errors, sizes = classifier_calibration_curve(estimator,X,y,alphas)
-#     fig, ax1 = plt.subplots(figsize=(15,15))
-#     ax2 = ax1.twinx()
-#     ax1.plot([0,1], [0,1])
-    
-#     ax1.plot(alphas, errors, 'o', color = 'black', linewidth=7.0)
-#     ax2.plot(alphas, sizes,  '-', color = 'blue', linewidth=7.0)
-    
-#     ax1.tick_params(axis="x", labelsize=25)
-#     ax1.tick_params(axis="y", labelsize=25)
-#     ax2.tick_params(axis="y", labelsize=25)
-    
-#     ax1.set_xlabel('Significance', size=40)
-#     ax1.set_ylabel('Error Rate', size=40)
-#     ax2.set_ylabel('Avg. Set Size', size=40)
-    
-#     title = f'Classification Conformal Calibration Curve for {metagenome_classifier_used} on {dataset_used} data for {_type_}'
-#     new_title = clean_strings(title, 120)
-#     plt.title(new_title, size=40)
-#     plt.legend(loc=0, prop={"size": 40}, markerscale=10)
-#     plt.show()
-    
-
-# def conformal_analysis(dataset_used: str, 
-#                        metagenome_classifier_used: str, 
-#                        X_test: np.ndarray, 
-#                        y_test: np.ndarray, 
-#                        estimator: XGBClassifier, 
-#                        X_train: np.ndarray, 
-#                        y_train: np.ndarray,
-#                        _type_: str,
-#                        XGB_out: str):
-#     import dill as pickle
-#     ############ conformal ############
-#     filename_save = f"icp_{_type_}-{metagenome_classifier_used}.sav"
-#     if len(X_train) > 0:
-#         X_calibration, X_test, y_calibration, y_test = train_test_split(X_test, y_test, test_size=0.4, random_state=736)
-#         icp = IcpClassifier(ClassifierNc(ClassifierAdapter(estimator), MarginErrFunc()))
-#         icp.fit(X_train, y_train)
-#         icp.calibrate(X_calibration, y_calibration)
-#         icp_model_save = f"{XGB_out}/{filename_save}"
-#         print(f"Saving conformal icp model to: {icp_model_save}")
-#         pickle.dump(icp, open(icp_model_save, "wb"))
-#     else:
-#         icp_model_save = f"{XGB_out}/{filename_save}"
-#         if Path(icp_model_save).is_file():
-#             icp = pickle.load(open(icp_model_save, "rb"))       
-            
-#     prediction03 = icp.predict(X_test, 0.3)    
-#     prediction01 = icp.predict(X_test, 0.1)
-#     prediction005 = icp.predict(X_test, 0.05)
-#     prediction001 = icp.predict(X_test, 0.01)
-#     for sig, prediction in {0.3: prediction03, 0.1: prediction01, 0.05: prediction005, 0.01: prediction001}.items():
-#         df = pd.DataFrame(prediction)
-#         # df['C'] = df[0].eq(df[1]) # label False / False; True / True = TRUE
-#         df['p'] = df[0].ne(df[1]) # label False / True; True / False = TRUE
-#         vals = df['p'].value_counts()
-#         print(f"\nSignificance: {sig}; FALSE: {vals.loc[False]}; TRUE: {vals.loc[True]}")
-#         print(f'Percent TRUE: {(vals.loc[True] / (vals.loc[True] + vals.loc[False])) * 100:.2f} %')
-    
-#     # from nonconformist.evaluation import ClassIcpCvHelper
-#     # from nonconformist.evaluation import class_mean_errors
-#     # from nonconformist import evaluation
-#     # # evaluation requires updating of library import!!!!!!!!!!!!!!
-#     # # from sklearn.model_selection import train_test_split
-#     # # from sklearn.model_selection import StratifiedShuffleSplit
-#     # # from sklearn.model_selection import KFold  
-    
-#     # icp_cv = ClassIcpCvHelper(icp)
-
-#     # evaluation.cross_val_score(icp_cv, X_test, y_test, scoring_funcs=[class_mean_errors])
-    
-#     classification_calibration_plot(dataset_used, metagenome_classifier_used, icp, X_test, y_test, _type_)    
-#     ############ conformal ############
-    
-#     return [prediction01, prediction005]
-
-
-# metagenome_classifier_used = "centrifuge"
-# dataset_used = "train-test"
-# input_df = train_test_df_ce
-# data_cols = cd_data_cols
-# id_cols = ce_id_cols
-# _type_ = "sample status"
-# estimator = XGB_classifier_model
-        

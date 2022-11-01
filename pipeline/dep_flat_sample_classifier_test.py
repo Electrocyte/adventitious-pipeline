@@ -570,7 +570,9 @@ if __name__ == "__main__":
         kingdom = "fungus"
     if bN_name == "v_f_b":
         kingdom = "v_f_b"
-
+    if bN_name == "v_f_b2":
+        kingdom = "v_f_b2"
+        
     no_host = "_no_host"
     processes_input = 10
 
