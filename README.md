@@ -24,8 +24,8 @@ Run Pipeline -  Example run commands for metagenomic pipeline for bacterial, fun
 /adventitious-pipeline/mp_metagenomic_assessment_v4.py -d /path/to/data/  
     -t 10 -ci /location/of/Centrifuge_libraries/ -c -qf 
     -bl "v_f_b" -m -rs 1 
-    -fd "/adventitious-pipeline/configs/viral_examples.txt" 
-    -hn "TC,Jurkat"
+    -fd "/adventitious-pipeline/configs/temp_aDNA_all5.txt" 
+    -hn "TC"
 ```
 <br /><br />
 
@@ -73,7 +73,7 @@ Run Pipeline -  Example run commands for metagenomic pipeline for bacterial, fun
     * Quality control is assessed using receiver operating characteristic curves alongside cross validation (`cv=5, scoring='accuracy'`), confusion matrices and classification reports. 
 <br />
 
-* XGBoost Classifer - Binary classification - two questions posed:
+* XGBoost Classifer - Binary classification - two questions posed (example hyper parameters shown):
     * Is the sample contaminated?
      ```
      XGBClassifier(random_state = 736, 
