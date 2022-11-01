@@ -1,7 +1,0 @@
-date,NA,strain,concentration_CFU,batch,duration_h,Flowcell_no,Sample_original,Identifier,Barcode,Total_cycles,Spike_species,Kit
-20201103,aDNA,PAO1,10000000000CFU,1,12,13,PAO1 undiluted,S4B2,barcode01,27,Pseudomonas aeruginosa,RAB204
-20201103,aDNA,PAO1,10000000000CFU,2,12,13,PAO1 0.1 OD,S4B2,barcode02,27,Pseudomonas aeruginosa,RAB204
-20201103,aDNA,PAO1,10000000000CFU,3,12,13,PAO1 10000000000 CFU,S4B2,barcode03,27,Pseudomonas aeruginosa,RAB204
-20201103,aDNA,PAO1,100000000CFU,1,12,13,PAO1 100000000 CFU,S4B2,barcode04,27,Pseudomonas aeruginosa,RAB204
-20201103,aDNA,PAO1,1000000CFU,1,12,13,PAO1 1000000 CFU,S4B2,barcode05,27,Pseudomonas aeruginosa,RAB204
-20201103,aDNA,PAO1,300000CFU,1,12,13,PAO1 300000 CFU,S4B2,barcode06,27,Pseudomonas aeruginosa,RAB204

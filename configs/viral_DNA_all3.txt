@@ -1,5 +1,0 @@
-20220209_ssDNA_Jurkat-random-primers-cDNA-synthy_100000000CFU_26_36
-20220209_ssDNA_FELV-oligo-dT-ss-synthesis_100000000CFU_26_36
-20220209_ssDNA_FELV-random-primers-cDNA-synth_100000000CFU_26_36
-20220209_ssDNA_FELV-Jurkat-oligo-dT-cDNA-synth_100000000CFU_26_36
-20220209_ssDNA_FELV-Jurkat-100-1-random-primers-cDNA-synth_100000000CFU_26_36

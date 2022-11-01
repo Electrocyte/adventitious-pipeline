@@ -1,3 +1,0 @@
-/SequencingData/Direct_RNA/analysis/Unfilt_1_500/trimmed/no_human/, 1, 1
-/SequencingData/Direct_RNA/analysis/Filt_1_500/trimmed/no_human/, 1, 2
-/SequencingData/Direct_RNA/analysis/Unfilt_1_50000/trimmed/no_human/, 1, 3

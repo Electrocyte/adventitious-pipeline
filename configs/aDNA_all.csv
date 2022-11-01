@@ -81,137 +81,137 @@ date,NA,strain,concentration_CFU,batch,duration_h,Flowcell_no,Sample_original,Id
 20201103,aDNA,PAO1,100000000CFU,1,12,13,PAO1 100000000 CFU,S4B2,barcode04,27,Pseudomonas aeruginosa,RAB204
 20201103,aDNA,PAO1,1000000CFU,1,12,13,PAO1 1000000 CFU,S4B2,barcode05,27,Pseudomonas aeruginosa,RAB204
 20201103,aDNA,PAO1,300000CFU,1,12,13,PAO1 300000 CFU,S4B2,barcode06,27,Pseudomonas aeruginosa,RAB204
-20210628,aDNA,PlainMedia16S,0CFU,79,12,23,guppy-demux,S7B9,barcode01,29,Unknown,RAB204
-20210628,aDNA,TCell16S,0CFU,79,12,23,guppy-demux,S7B9,barcode02,29,Unknown,RAB204
-20210628,aDNA,CellfreeMedia16S,0CFU,79,12,23,guppy-demux,S7B9,barcode03,29,Unknown,RAB204
-20210628,aDNA,TCPAEC16S,1000CFU,79,12,23,guppy-demux,S7B9,barcode04,29,"Pseudomonas aeruginosa, Escherichia coli ",RAB204
-20210628,aDNA,Pacnes16S,1000CFU,79,12,23,guppy-demux,S7B9,barcode05,29,Cutibacterium acnes,RAB204
-20210628,aDNA,TCPacnes16S,1000CFU,79,12,23,guppy-demux,S7B9,barcode06,29,Cutibacterium acnes,RAB204
-20210628,aDNA,PlainMedia,0CFU,79,12,23,guppy-demux,S7B10,barcode05,0,Unknown,RBK004
-20210628,aDNA,TCell,0CFU,79,12,23,guppy-demux,S7B10,barcode03,0,Unknown,RBK004
-20210628,aDNA,CellfreeMedia,0CFU,79,12,23,guppy-demux,S7B10,barcode06,0,Unknown,RBK004
-20210628,aDNA,TCPAEC,1000CFU,79,12,23,guppy-demux,S7B10,barcode04,0,"Pseudomonas aeruginosa, Escherichia coli ",RBK004
-20210628,aDNA,Pacnes,1000CFU,79,12,23,guppy-demux,S7B10,barcode02,0,Cutibacterium acnes,RBK004
-20210628,aDNA,TCPacnes,1000CFU,79,12,23,guppy-demux,S7B10,barcode01,0,Cutibacterium acnes,RBK004
-20210726,aDNA,PlainMedia16S,0CFU,80,24,24,guppy-demux,S8B0,barcode05,29,Unknown,RAB204
-20210726,aDNA,TCell16S,0CFU,80,24,24,guppy-demux,S8B0,barcode06,29,Unknown,RAB204
-20210726,aDNA,CellfreeMedia16S,0CFU,80,24,24,guppy-demux,S8B0,barcode03,29,Unknown,RAB204
-20210726,aDNA,TCPAEC16S,1000CFU,80,24,24,guppy-demux,S8B0,barcode04,29,"Pseudomonas aeruginosa, Escherichia coli ",RAB204
-20210726,aDNA,Cacnes16S,1000CFU,80,24,24,guppy-demux,S8B0,barcode01,29,Cutibacterium acnes,RAB204
-20210726,aDNA,TCCacnes16S,1000CFU,80,24,24,guppy-demux,S8B0,barcode02,29,Cutibacterium acnes,RAB204
-20210726,DNA,PB-TCell,0CFU,81,24,23,guppy-demux,S8B1,barcode01,0,Unknown,RBK004
-20210726,DNA,PB-TCellEC,1000CFU,81,24,23,guppy-demux,S8B1,barcode02,0,Escherichia coli ,RBK004
-20210726,DNA,PS-TCell,0CFU,81,24,23,guppy-demux,S8B1,barcode03,0,Unknown,RBK004
-20210726,DNA,PS-TCellEC,1000CFU,81,24,23,guppy-demux,S8B1,barcode04,0,Escherichia coli ,RBK004
-20210727,aDNA,PB-TCell16S,0CFU,82,18,26,guppy-demux,S8B2,barcode01,29,Unknown,RAB204
-20210727,aDNA,PB-TCellEC16S,1000CFU,82,18,26,guppy-demux,S8B2,barcode02,29,Escherichia coli ,RAB204
-20210727,aDNA,PS-TCell16S,0CFU,82,18,26,guppy-demux,S8B2,barcode03,29,Unknown,RAB204
-20210727,aDNA,PS-TCellEC16S,1000CFU,82,18,26,guppy-demux,S8B2,barcode04,29,Escherichia coli ,RAB204
-20210726,aDNA,PlainMedia16S,0CFU,80,24,24,guppy-demux,S8B0,barcode10,29,Unknown,RAB204
-20210726,aDNA,TCellKleb16S,1000CFU,80,24,24,guppy-demux,S8B0,barcode12,29,Klebsiella pneumoniae,RAB204
-20210726,aDNA,CellfreeMedia16S,0CFU,80,24,24,guppy-demux,S8B0,barcode11,29,Unknown,RAB204
-20210726,aDNA,TCPAEC16S,1000CFU,80,24,24,guppy-demux,S8B0,barcode09,29,"Pseudomonas aeruginosa, Escherichia coli ",RAB204
-20210726,aDNA,Cacnes16S,1000CFU,80,24,24,guppy-demux,S8B0,barcode07,29,Cutibacterium acnes,RAB204
-20210726,aDNA,TCCacnes16S,1000CFU,80,24,24,guppy-demux,S8B0,barcode08,29,Cutibacterium acnes,RAB204
-20210726,DNA,PlainMedia,0CFU,81,24,23,guppy-demux,S8B1,barcode06,0,Unknown,RBK004
-20210726,DNA,TCellKleb,1000CFU,81,24,23,guppy-demux,S8B1,barcode08,0,Klebsiella pneumoniae,RBK004
-20210726,DNA,CellfreeMedia,0CFU,81,24,23,guppy-demux,S8B1,barcode05,0,Unknown,RBK004
-20210726,DNA,TCPAEC,1000CFU,81,24,23,guppy-demux,S8B1,barcode07,0,"Pseudomonas aeruginosa, Escherichia coli ",RBK004
-20210726,DNA,Cacnes,1000CFU,81,24,23,guppy-demux,S8B1,barcode09,0,Cutibacterium acnes,RBK004
-20210726,DNA,TCCacnes,1000CFU,81,24,23,guppy-demux,S8B1,barcode10,0,Cutibacterium acnes,RBK004
-20210727,DNA,PB-TCell,0CFU,83,18,25,guppy-demux,S8B3,barcode01,0,Unknown,RBK004
-20210727,DNA,PB-TCellEC,1000CFU,83,18,25,guppy-demux,S8B3,barcode02,0,Escherichia coli ,RBK004
-20210727,DNA,PS-TCell,0CFU,83,18,25,guppy-demux,S8B3,barcode03,0,Unknown,RBK004
-20210727,DNA,PS-TCellEC,1000CFU,83,18,25,guppy-demux,S8B3,barcode04,0,Escherichia coli ,RBK004
-20210727,DNA,PlainMedia,0CFU,83,18,25,guppy-demux,S8B3,barcode06,0,Unknown,RBK004
-20210727,DNA,TCellKleb,1000CFU,83,18,25,guppy-demux,S8B3,barcode08,0,Klebsiella pneumoniae,RBK004
-20210727,DNA,CellfreeMedia,0CFU,83,18,25,guppy-demux,S8B3,barcode05,0,Unknown,RBK004
-20210727,DNA,TCPAEC,1000CFU,83,18,25,guppy-demux,S8B3,barcode07,0,"Pseudomonas aeruginosa, Escherichia coli ",RBK004
-20210727,DNA,Cacnes,1000CFU,83,18,25,guppy-demux,S8B3,barcode09,0,Cutibacterium acnes,RBK004
-20210727,DNA,TCCacnes,1000CFU,83,18,25,guppy-demux,S8B3,barcode10,0,Cutibacterium acnes,RBK004
-20211020,DNA,Klebpneu-zymo,10CFU,84,18,28,guppy-demux,S8B4,barcode01,0,Klebsiella pneumoniae,RBK004
-20211020,DNA,Klebpneu-zymo,100CFU,84,18,28,guppy-demux,S8B4,barcode02,0,Klebsiella pneumoniae,RBK004
-20211020,DNA,Klebpneu-zymo,1000CFU,84,18,28,guppy-demux,S8B4,barcode03,0,Klebsiella pneumoniae,RBK004
-20211020,DNA,Klebpneu-zymo,10000CFU,84,18,28,guppy-demux,S8B4,barcode04,0,Klebsiella pneumoniae,RBK004
-20211020,DNA,Klebpneu-no-zymo,10CFU,84,18,28,guppy-demux,S8B4,barcode05,0,Klebsiella pneumoniae,RBK004
-20211020,DNA,Klebpneu-no-zymo,100CFU,84,18,28,guppy-demux,S8B4,barcode06,0,Klebsiella pneumoniae,RBK004
-20211020,DNA,Klebpneu-no-zymo,1000CFU,84,18,28,guppy-demux,S8B4,barcode07,0,Klebsiella pneumoniae,RBK004
-20211020,DNA,Klebpneu-no-zymo,10000CFU,84,18,28,guppy-demux,S8B4,barcode08,0,Klebsiella pneumoniae,RBK004
-20211020,DNA,TCKlebpneu-zymo,10CFU,86,18,27,guppy-demux,S8B6,barcode01,0,Klebsiella pneumoniae,RBK004
-20211020,DNA,TCKlebpneu-zymo,100CFU,86,18,27,guppy-demux,S8B6,barcode02,0,Klebsiella pneumoniae,RBK004
-20211020,DNA,TCKlebpneu-zymo,1000CFU,86,18,27,guppy-demux,S8B6,barcode03,0,Klebsiella pneumoniae,RBK004
-20211020,DNA,TCKlebpneu-zymo,10000CFU,86,18,27,guppy-demux,S8B6,barcode04,0,Klebsiella pneumoniae,RBK004
-20211020,DNA,TCKlebpneu-no-zymo,10CFU,86,18,27,guppy-demux,S8B6,barcode05,0,Klebsiella pneumoniae,RBK004
-20211020,DNA,TCKlebpneu-no-zymo,100CFU,86,18,27,guppy-demux,S8B6,barcode06,0,Klebsiella pneumoniae,RBK004
-20211020,DNA,TCKlebpneu-no-zymo,1000CFU,86,18,27,guppy-demux,S8B6,barcode07,0,Klebsiella pneumoniae,RBK004
-20211020,DNA,TCKlebpneu-no-zymo,10000CFU,86,18,27,guppy-demux,S8B6,barcode08,0,Klebsiella pneumoniae,RBK004
-20211021,aDNA,Klebpneu-zymo-16S,10CFU,89,18,27,guppy-demux,S8B9,barcode01,29,Klebsiella pneumoniae,RAB204
-20211021,aDNA,Klebpneu-zymo-16S,100CFU,89,18,27,guppy-demux,S8B9,barcode02,29,Klebsiella pneumoniae,RAB204
-20211021,aDNA,Klebpneu-zymo-16S,1000CFU,89,18,27,guppy-demux,S8B9,barcode03,29,Klebsiella pneumoniae,RAB204
-20211021,aDNA,Klebpneu-zymo-16S,10000CFU,89,18,27,guppy-demux,S8B9,barcode04,29,Klebsiella pneumoniae,RAB204
-20211021,aDNA,Klebpneu-no-zymo-16S,10CFU,810,18,28,guppy-demux,S8B10,barcode01,29,Klebsiella pneumoniae,RAB204
-20211021,aDNA,Klebpneu-no-zymo-16S,100CFU,810,18,28,guppy-demux,S8B10,barcode02,29,Klebsiella pneumoniae,RAB204
-20211021,aDNA,Klebpneu-no-zymo-16S,1000CFU,810,18,28,guppy-demux,S8B10,barcode03,29,Klebsiella pneumoniae,RAB204
-20211021,aDNA,Klebpneu-no-zymo-16S,10000CFU,810,18,28,guppy-demux,S8B10,barcode04,29,Klebsiella pneumoniae,RAB204
-20211021,aDNA,TCKlebpneu-zymo-16S,10CFU,89,18,27,guppy-demux,S8B9,barcode08,29,Klebsiella pneumoniae,RAB204
-20211021,aDNA,TCKlebpneu-zymo-16S,100CFU,89,18,27,guppy-demux,S8B9,barcode09,29,Klebsiella pneumoniae,RAB204
-20211021,aDNA,TCKlebpneu-zymo-16S,1000CFU,89,18,27,guppy-demux,S8B9,barcode10,29,Klebsiella pneumoniae,RAB204
-20211021,aDNA,TCKlebpneu-zymo-16S,10000CFU,89,18,27,guppy-demux,S8B9,barcode11,29,Klebsiella pneumoniae,RAB204
-20211021,aDNA,TCKlebpneu-no-zymo-16S,10CFU,810,18,28,guppy-demux,S8B10,barcode06,29,Klebsiella pneumoniae,RAB204
-20211021,aDNA,TCKlebpneu-no-zymo-16S,100CFU,810,18,28,guppy-demux,S8B10,barcode07,29,Klebsiella pneumoniae,RAB204
-20211021,aDNA,TCKlebpneu-no-zymo-16S,1000CFU,810,18,28,guppy-demux,S8B10,barcode08,29,Klebsiella pneumoniae,RAB204
-20211021,aDNA,TCKlebpneu-no-zymo-16S,10000CFU,810,18,28,guppy-demux,S8B10,barcode09,29,Klebsiella pneumoniae,RAB204
-20220221,DNA,CellfreeMedia-1,0CFU,816,18,33,guppy-demux,S8B16,barcode05,0,Unknown,RBK004
-20220221,DNA,CellfreeMedia-2,0CFU,816,18,33,guppy-demux,S8B16,barcode06,0,Unknown,RBK004
-20220221,DNA,CellfreeMedia-3,0CFU,816,18,33,guppy-demux,S8B16,barcode09,0,Unknown,RBK004
-20220221,DNA,TC-G-REX-CD19-1,0CFU,817,18,34,guppy-demux,S8B17,barcode10,0,Unknown,RBK004
-20220221,DNA,TC-G-REX-CD19-2,0CFU,817,18,34,guppy-demux,S8B17,barcode11,0,Unknown,RBK004
-20220221,DNA,TC-Well-Plate-CD19,0CFU,817,18,34,guppy-demux,S8B17,barcode12,0,Unknown,RBK004
-20220221,aDNA,CellfreeMedia-1-16S,0CFU,815,18,31,guppy-demux,S8B15,barcode04,29,Unknown,RAB204
-20220221,aDNA,CellfreeMedia-2-16S,0CFU,815,18,31,guppy-demux,S8B15,barcode05,29,Unknown,RAB204
-20220221,aDNA,CellfreeMedia-3-16S,0CFU,815,18,31,guppy-demux,S8B15,barcode06,29,Unknown,RAB204
-20220221,aDNA,PlainMedia-1-16S,0CFU,815,18,31,guppy-demux,S8B15,barcode01,29,Unknown,RAB204
-20220221,aDNA,PlainMedia-2-16S,0CFU,815,18,31,guppy-demux,S8B15,barcode02,29,Unknown,RAB204
-20220221,aDNA,PlainMedia-3-16S,0CFU,815,18,31,guppy-demux,S8B15,barcode03,29,Unknown,RAB204
-20220221,aDNA,TC-G-REX-CD19-1-16S,0CFU,815,18,31,guppy-demux,S8B15,barcode07,29,Unknown,RAB204
-20220221,aDNA,TC-G-REX-CD19-2-16S,0CFU,815,18,31,guppy-demux,S8B15,barcode09,29,Unknown,RAB204
-20220221,aDNA,TC-Well-Plate-CD19-16S,0CFU,815,18,31,guppy-demux,S8B15,barcode08,29,Unknown,RAB204
-20220322,aDNA,Cacnes-1-16S,500CFU,818,18,34,guppy-demux,S8B18,barcode01,29,Cutibacterium acnes,RAB204
-20220322,aDNA,Cacnes-2-16S,500CFU,818,18,34,guppy-demux,S8B18,barcode02,29,Cutibacterium acnes,RAB204
-20220322,aDNA,Cacnes-3-16S,500CFU,818,18,34,guppy-demux,S8B18,barcode03,29,Cutibacterium acnes,RAB204
-20220322,aDNA,Cacnes-1-16S,5000CFU,818,18,34,guppy-demux,S8B18,barcode04,29,Cutibacterium acnes,RAB204
-20220322,aDNA,Cacnes-2-16S,5000CFU,818,18,34,guppy-demux,S8B18,barcode05,29,Cutibacterium acnes,RAB204
-20220322,aDNA,Cacnes-3-16S,5000CFU,818,18,34,guppy-demux,S8B18,barcode06,29,Cutibacterium acnes,RAB204
-20220322,aDNA,TC-Cacnes-1-16S,500CFU,818,18,34,guppy-demux,S8B18,barcode07,29,Cutibacterium acnes,RAB204
-20220322,aDNA,TC-Cacnes-2-16S,500CFU,818,18,34,guppy-demux,S8B18,barcode08,29,Cutibacterium acnes,RAB204
-20220322,aDNA,TC-Cacnes-3-16S,500CFU,818,18,34,guppy-demux,S8B18,barcode09,29,Cutibacterium acnes,RAB204
-20220322,aDNA,TC-Cacnes-1-16S,5000CFU,818,18,34,guppy-demux,S8B18,barcode10,29,Cutibacterium acnes,RAB204
-20220322,aDNA,TC-Cacnes-2-16S,5000CFU,818,18,34,guppy-demux,S8B18,barcode11,29,Cutibacterium acnes,RAB204
-20220322,aDNA,TC-Cacnes-3-16S,5000CFU,818,18,34,guppy-demux,S8B18,barcode12,29,Cutibacterium acnes,RAB204
-20220322,aDNA,Saureus-1-16S,10CFU,819,18,33,guppy-demux,S8B19,barcode01,29,Staphylococcus aureus,RAB204
-20220322,aDNA,Saureus-2-16S,10CFU,819,18,33,guppy-demux,S8B19,barcode02,29,Staphylococcus aureus,RAB204
-20220322,aDNA,Saureus-3-16S,10CFU,819,18,33,guppy-demux,S8B19,barcode03,29,Staphylococcus aureus,RAB204
-20220322,aDNA,Saureus-1-16S,100CFU,819,18,33,guppy-demux,S8B19,barcode04,29,Staphylococcus aureus,RAB204
-20220322,aDNA,Saureus-2-16S,100CFU,819,18,33,guppy-demux,S8B19,barcode05,29,Staphylococcus aureus,RAB204
-20220322,aDNA,Saureus-3-16S,100CFU,819,18,33,guppy-demux,S8B19,barcode06,29,Staphylococcus aureus,RAB204
-20220322,aDNA,TC-Saureus-1-16S,10CFU,819,18,33,guppy-demux,S8B19,barcode07,29,Staphylococcus aureus,RAB204
-20220322,aDNA,TC-Saureus-2-16S,10CFU,819,18,33,guppy-demux,S8B19,barcode08,29,Staphylococcus aureus,RAB204
-20220322,aDNA,TC-Saureus-3-16S,10CFU,819,18,33,guppy-demux,S8B19,barcode09,29,Staphylococcus aureus,RAB204
-20220322,aDNA,TC-Saureus-1-16S,100CFU,819,18,33,guppy-demux,S8B19,barcode10,29,Staphylococcus aureus,RAB204
-20220322,aDNA,TC-Saureus-2-16S,100CFU,819,18,33,guppy-demux,S8B19,barcode11,29,Staphylococcus aureus,RAB204
-20220322,aDNA,TC-Saureus-3-16S,100CFU,819,18,33,guppy-demux,S8B19,barcode12,29,Staphylococcus aureus,RAB204
-20220323,DNA,Cacnes-1,500CFU,820,18,35,guppy-demux,S8B20,barcode01,0,Cutibacterium acnes,RBK004
-20220323,DNA,Cacnes-2,500CFU,820,18,35,guppy-demux,S8B20,barcode02,0,Cutibacterium acnes,RBK004
-20220323,DNA,Cacnes-3,500CFU,820,18,35,guppy-demux,S8B20,barcode03,0,Cutibacterium acnes,RBK004
-20220323,DNA,Cacnes-1,5000CFU,820,18,35,guppy-demux,S8B20,barcode04,0,Cutibacterium acnes,RBK004
-20220323,DNA,Cacnes-2,5000CFU,820,18,35,guppy-demux,S8B20,barcode05,0,Cutibacterium acnes,RBK004
-20220323,DNA,Cacnes-3,5000CFU,820,18,35,guppy-demux,S8B20,barcode06,0,Cutibacterium acnes,RBK004
-20220323,DNA,TC-Cacnes-1,500CFU,820,18,35,guppy-demux,S8B20,barcode07,0,Cutibacterium acnes,RBK004
-20220323,DNA,TC-Cacnes-2,500CFU,820,18,35,guppy-demux,S8B20,barcode08,0,Cutibacterium acnes,RBK004
-20220323,DNA,TC-Cacnes-3,500CFU,820,18,35,guppy-demux,S8B20,barcode09,0,Cutibacterium acnes,RBK004
-20220323,DNA,TC-Cacnes-1,5000CFU,820,18,35,guppy-demux,S8B20,barcode10,0,Cutibacterium acnes,RBK004
-20220323,DNA,TC-Cacnes-2,5000CFU,820,18,35,guppy-demux,S8B20,barcode11,0,Cutibacterium acnes,RBK004
-20220323,DNA,TC-Cacnes-3,5000CFU,820,18,35,guppy-demux,S8B20,barcode12,0,Cutibacterium acnes,RBK004
+20210628,aDNA,PlainMedia16S,0CFU,79,12,23,PlainMedia16S,S7B9,barcode01,29,Unknown,RAB204
+20210628,aDNA,TCell16S,0CFU,79,12,23,TCell16S,S7B9,barcode02,29,Unknown,RAB204
+20210628,aDNA,CellfreeMedia16S,0CFU,79,12,23,CellfreeMedia16S,S7B9,barcode03,29,Unknown,RAB204
+20210628,aDNA,TCPAEC16S,1000CFU,79,12,23,TCPAEC16S,S7B9,barcode04,29,"Pseudomonas aeruginosa, Escherichia coli ",RAB204
+20210628,aDNA,Pacnes16S,1000CFU,79,12,23,Pacnes16S,S7B9,barcode05,29,Cutibacterium acnes,RAB204
+20210628,aDNA,TCPacnes16S,1000CFU,79,12,23,TCPacnes16S,S7B9,barcode06,29,Cutibacterium acnes,RAB204
+20210628,aDNA,PlainMedia,0CFU,79,12,23,PlainMedia,S7B10,barcode05,0,Unknown,RBK004
+20210628,aDNA,TCell,0CFU,79,12,23,TCell,S7B10,barcode03,0,Unknown,RBK004
+20210628,aDNA,CellfreeMedia,0CFU,79,12,23,CellfreeMedia,S7B10,barcode06,0,Unknown,RBK004
+20210628,aDNA,TCPAEC,1000CFU,79,12,23,TCPAEC,S7B10,barcode04,0,"Pseudomonas aeruginosa, Escherichia coli ",RBK004
+20210628,aDNA,Pacnes,1000CFU,79,12,23,Pacnes,S7B10,barcode02,0,Cutibacterium acnes,RBK004
+20210628,aDNA,TCPacnes,1000CFU,79,12,23,TCPacnes,S7B10,barcode01,0,Cutibacterium acnes,RBK004
+20210726,aDNA,PlainMedia16S,0CFU,80,24,24,PlainMedia16S,S8B0,barcode05,29,Unknown,RAB204
+20210726,aDNA,TCell16S,0CFU,80,24,24,TCell16S,S8B0,barcode06,29,Unknown,RAB204
+20210726,aDNA,CellfreeMedia16S,0CFU,80,24,24,CellfreeMedia16S,S8B0,barcode03,29,Unknown,RAB204
+20210726,aDNA,TCPAEC16S,1000CFU,80,24,24,TCPAEC16S,S8B0,barcode04,29,"Pseudomonas aeruginosa, Escherichia coli ",RAB204
+20210726,aDNA,Cacnes16S,1000CFU,80,24,24,Cacnes16S,S8B0,barcode01,29,Cutibacterium acnes,RAB204
+20210726,aDNA,TCCacnes16S,1000CFU,80,24,24,TCCacnes16S,S8B0,barcode02,29,Cutibacterium acnes,RAB204
+20210726,DNA,PB-TCell,0CFU,81,24,23,PB-TCell,S8B1,barcode01,0,Unknown,RBK004
+20210726,DNA,PB-TCellEC,1000CFU,81,24,23,PB-TCellEC,S8B1,barcode02,0,Escherichia coli ,RBK004
+20210726,DNA,PS-TCell,0CFU,81,24,23,PS-TCell,S8B1,barcode03,0,Unknown,RBK004
+20210726,DNA,PS-TCellEC,1000CFU,81,24,23,PS-TCellEC,S8B1,barcode04,0,Escherichia coli ,RBK004
+20210727,aDNA,PB-TCell16S,0CFU,82,18,26,PB-TCell16S,S8B2,barcode01,29,Unknown,RAB204
+20210727,aDNA,PB-TCellEC16S,1000CFU,82,18,26,PB-TCellEC16S,S8B2,barcode02,29,Escherichia coli ,RAB204
+20210727,aDNA,PS-TCell16S,0CFU,82,18,26,PS-TCell16S,S8B2,barcode03,29,Unknown,RAB204
+20210727,aDNA,PS-TCellEC16S,1000CFU,82,18,26,PS-TCellEC16S,S8B2,barcode04,29,Escherichia coli ,RAB204
+20210726,aDNA,PlainMedia16S,0CFU,80,24,24,PlainMedia16S,S8B0,barcode10,29,Unknown,RAB204
+20210726,aDNA,TCellKleb16S,1000CFU,80,24,24,TCellKleb16S,S8B0,barcode12,29,Klebsiella pneumoniae,RAB204
+20210726,aDNA,CellfreeMedia16S,0CFU,80,24,24,CellfreeMedia16S,S8B0,barcode11,29,Unknown,RAB204
+20210726,aDNA,TCPAEC16S,1000CFU,80,24,24,TCPAEC16S,S8B0,barcode09,29,"Pseudomonas aeruginosa, Escherichia coli ",RAB204
+20210726,aDNA,Cacnes16S,1000CFU,80,24,24,Cacnes16S,S8B0,barcode07,29,Cutibacterium acnes,RAB204
+20210726,aDNA,TCCacnes16S,1000CFU,80,24,24,TCCacnes16S,S8B0,barcode08,29,Cutibacterium acnes,RAB204
+20210726,DNA,PlainMedia,0CFU,81,24,23,PlainMedia,S8B1,barcode06,0,Unknown,RBK004
+20210726,DNA,TCellKleb,1000CFU,81,24,23,TCellKleb,S8B1,barcode08,0,Klebsiella pneumoniae,RBK004
+20210726,DNA,CellfreeMedia,0CFU,81,24,23,CellfreeMedia,S8B1,barcode05,0,Unknown,RBK004
+20210726,DNA,TCPAEC,1000CFU,81,24,23,TCPAEC,S8B1,barcode07,0,"Pseudomonas aeruginosa, Escherichia coli ",RBK004
+20210726,DNA,Cacnes,1000CFU,81,24,23,Cacnes,S8B1,barcode09,0,Cutibacterium acnes,RBK004
+20210726,DNA,TCCacnes,1000CFU,81,24,23,TCCacnes,S8B1,barcode10,0,Cutibacterium acnes,RBK004
+20210727,DNA,PB-TCell,0CFU,83,18,25,PB-TCell,S8B3,barcode01,0,Unknown,RBK004
+20210727,DNA,PB-TCellEC,1000CFU,83,18,25,PB-TCellEC,S8B3,barcode02,0,Escherichia coli ,RBK004
+20210727,DNA,PS-TCell,0CFU,83,18,25,PS-TCell,S8B3,barcode03,0,Unknown,RBK004
+20210727,DNA,PS-TCellEC,1000CFU,83,18,25,PS-TCellEC,S8B3,barcode04,0,Escherichia coli ,RBK004
+20210727,DNA,PlainMedia,0CFU,83,18,25,PlainMedia,S8B3,barcode06,0,Unknown,RBK004
+20210727,DNA,TCellKleb,1000CFU,83,18,25,TCellKleb,S8B3,barcode08,0,Klebsiella pneumoniae,RBK004
+20210727,DNA,CellfreeMedia,0CFU,83,18,25,CellfreeMedia,S8B3,barcode05,0,Unknown,RBK004
+20210727,DNA,TCPAEC,1000CFU,83,18,25,TCPAEC,S8B3,barcode07,0,"Pseudomonas aeruginosa, Escherichia coli ",RBK004
+20210727,DNA,Cacnes,1000CFU,83,18,25,Cacnes,S8B3,barcode09,0,Cutibacterium acnes,RBK004
+20210727,DNA,TCCacnes,1000CFU,83,18,25,TCCacnes,S8B3,barcode10,0,Cutibacterium acnes,RBK004
+20211020,DNA,Klebpneu-zymo,10CFU,84,18,28,Klebpneu-zymo,S8B4,barcode01,0,Klebsiella pneumoniae,RBK004
+20211020,DNA,Klebpneu-zymo,100CFU,84,18,28,Klebpneu-zymo,S8B4,barcode02,0,Klebsiella pneumoniae,RBK004
+20211020,DNA,Klebpneu-zymo,1000CFU,84,18,28,Klebpneu-zymo,S8B4,barcode03,0,Klebsiella pneumoniae,RBK004
+20211020,DNA,Klebpneu-zymo,10000CFU,84,18,28,Klebpneu-zymo,S8B4,barcode04,0,Klebsiella pneumoniae,RBK004
+20211020,DNA,Klebpneu-no-zymo,10CFU,84,18,28,Klebpneu-no-zymo,S8B4,barcode05,0,Klebsiella pneumoniae,RBK004
+20211020,DNA,Klebpneu-no-zymo,100CFU,84,18,28,Klebpneu-no-zymo,S8B4,barcode06,0,Klebsiella pneumoniae,RBK004
+20211020,DNA,Klebpneu-no-zymo,1000CFU,84,18,28,Klebpneu-no-zymo,S8B4,barcode07,0,Klebsiella pneumoniae,RBK004
+20211020,DNA,Klebpneu-no-zymo,10000CFU,84,18,28,Klebpneu-no-zymo,S8B4,barcode08,0,Klebsiella pneumoniae,RBK004
+20211020,DNA,TCKlebpneu-zymo,10CFU,86,18,27,TCKlebpneu-zymo,S8B6,barcode01,0,Klebsiella pneumoniae,RBK004
+20211020,DNA,TCKlebpneu-zymo,100CFU,86,18,27,TCKlebpneu-zymo,S8B6,barcode02,0,Klebsiella pneumoniae,RBK004
+20211020,DNA,TCKlebpneu-zymo,1000CFU,86,18,27,TCKlebpneu-zymo,S8B6,barcode03,0,Klebsiella pneumoniae,RBK004
+20211020,DNA,TCKlebpneu-zymo,10000CFU,86,18,27,TCKlebpneu-zymo,S8B6,barcode04,0,Klebsiella pneumoniae,RBK004
+20211020,DNA,TCKlebpneu-no-zymo,10CFU,86,18,27,TCKlebpneu-no-zymo,S8B6,barcode05,0,Klebsiella pneumoniae,RBK004
+20211020,DNA,TCKlebpneu-no-zymo,100CFU,86,18,27,TCKlebpneu-no-zymo,S8B6,barcode06,0,Klebsiella pneumoniae,RBK004
+20211020,DNA,TCKlebpneu-no-zymo,1000CFU,86,18,27,TCKlebpneu-no-zymo,S8B6,barcode07,0,Klebsiella pneumoniae,RBK004
+20211020,DNA,TCKlebpneu-no-zymo,10000CFU,86,18,27,TCKlebpneu-no-zymo,S8B6,barcode08,0,Klebsiella pneumoniae,RBK004
+20211021,aDNA,Klebpneu-zymo-16S,10CFU,89,18,27,Klebpneu-zymo-16S,S8B9,barcode01,29,Klebsiella pneumoniae,RAB204
+20211021,aDNA,Klebpneu-zymo-16S,100CFU,89,18,27,Klebpneu-zymo-16S,S8B9,barcode02,29,Klebsiella pneumoniae,RAB204
+20211021,aDNA,Klebpneu-zymo-16S,1000CFU,89,18,27,Klebpneu-zymo-16S,S8B9,barcode03,29,Klebsiella pneumoniae,RAB204
+20211021,aDNA,Klebpneu-zymo-16S,10000CFU,89,18,27,Klebpneu-zymo-16S,S8B9,barcode04,29,Klebsiella pneumoniae,RAB204
+20211021,aDNA,Klebpneu-no-zymo-16S,10CFU,810,18,28,Klebpneu-no-zymo-16S,S8B10,barcode01,29,Klebsiella pneumoniae,RAB204
+20211021,aDNA,Klebpneu-no-zymo-16S,100CFU,810,18,28,Klebpneu-no-zymo-16S,S8B10,barcode02,29,Klebsiella pneumoniae,RAB204
+20211021,aDNA,Klebpneu-no-zymo-16S,1000CFU,810,18,28,Klebpneu-no-zymo-16S,S8B10,barcode03,29,Klebsiella pneumoniae,RAB204
+20211021,aDNA,Klebpneu-no-zymo-16S,10000CFU,810,18,28,Klebpneu-no-zymo-16S,S8B10,barcode04,29,Klebsiella pneumoniae,RAB204
+20211021,aDNA,TCKlebpneu-zymo-16S,10CFU,89,18,27,TCKlebpneu-zymo-16S,S8B9,barcode08,29,Klebsiella pneumoniae,RAB204
+20211021,aDNA,TCKlebpneu-zymo-16S,100CFU,89,18,27,TCKlebpneu-zymo-16S,S8B9,barcode09,29,Klebsiella pneumoniae,RAB204
+20211021,aDNA,TCKlebpneu-zymo-16S,1000CFU,89,18,27,TCKlebpneu-zymo-16S,S8B9,barcode10,29,Klebsiella pneumoniae,RAB204
+20211021,aDNA,TCKlebpneu-zymo-16S,10000CFU,89,18,27,TCKlebpneu-zymo-16S,S8B9,barcode11,29,Klebsiella pneumoniae,RAB204
+20211021,aDNA,TCKlebpneu-no-zymo-16S,10CFU,810,18,28,TCKlebpneu-no-zymo-16S,S8B10,barcode06,29,Klebsiella pneumoniae,RAB204
+20211021,aDNA,TCKlebpneu-no-zymo-16S,100CFU,810,18,28,TCKlebpneu-no-zymo-16S,S8B10,barcode07,29,Klebsiella pneumoniae,RAB204
+20211021,aDNA,TCKlebpneu-no-zymo-16S,1000CFU,810,18,28,TCKlebpneu-no-zymo-16S,S8B10,barcode08,29,Klebsiella pneumoniae,RAB204
+20211021,aDNA,TCKlebpneu-no-zymo-16S,10000CFU,810,18,28,TCKlebpneu-no-zymo-16S,S8B10,barcode09,29,Klebsiella pneumoniae,RAB204
+20220221,DNA,CellfreeMedia-1,0CFU,816,18,33,CellfreeMedia-1,S8B16,barcode05,0,Unknown,RBK004
+20220221,DNA,CellfreeMedia-2,0CFU,816,18,33,CellfreeMedia-2,S8B16,barcode06,0,Unknown,RBK004
+20220221,DNA,CellfreeMedia-3,0CFU,816,18,33,CellfreeMedia-3,S8B16,barcode09,0,Unknown,RBK004
+20220221,DNA,TC-G-REX-CD19-1,0CFU,817,18,34,TC-G-REX-CD19-1,S8B17,barcode10,0,Unknown,RBK004
+20220221,DNA,TC-G-REX-CD19-2,0CFU,817,18,34,TC-G-REX-CD19-2,S8B17,barcode11,0,Unknown,RBK004
+20220221,DNA,TC-Well-Plate-CD19,0CFU,817,18,34,TC-Well-Plate-CD19,S8B17,barcode12,0,Unknown,RBK004
+20220221,aDNA,CellfreeMedia-1-16S,0CFU,815,18,31,CellfreeMedia-1-16S,S8B15,barcode04,29,Unknown,RAB204
+20220221,aDNA,CellfreeMedia-2-16S,0CFU,815,18,31,CellfreeMedia-2-16S,S8B15,barcode05,29,Unknown,RAB204
+20220221,aDNA,CellfreeMedia-3-16S,0CFU,815,18,31,CellfreeMedia-3-16S,S8B15,barcode06,29,Unknown,RAB204
+20220221,aDNA,PlainMedia-1-16S,0CFU,815,18,31,PlainMedia-1-16S,S8B15,barcode01,29,Unknown,RAB204
+20220221,aDNA,PlainMedia-2-16S,0CFU,815,18,31,PlainMedia-2-16S,S8B15,barcode02,29,Unknown,RAB204
+20220221,aDNA,PlainMedia-3-16S,0CFU,815,18,31,PlainMedia-3-16S,S8B15,barcode03,29,Unknown,RAB204
+20220221,aDNA,TC-G-REX-CD19-1-16S,0CFU,815,18,31,TC-G-REX-CD19-1-16S,S8B15,barcode07,29,Unknown,RAB204
+20220221,aDNA,TC-G-REX-CD19-2-16S,0CFU,815,18,31,TC-G-REX-CD19-2-16S,S8B15,barcode09,29,Unknown,RAB204
+20220221,aDNA,TC-Well-Plate-CD19-16S,0CFU,815,18,31,TC-Well-Plate-CD19-16S,S8B15,barcode08,29,Unknown,RAB204
+20220322,aDNA,Cacnes-1-16S,500CFU,818,18,34,Cacnes-1-16S,S8B18,barcode01,29,Cutibacterium acnes,RAB204
+20220322,aDNA,Cacnes-2-16S,500CFU,818,18,34,Cacnes-2-16S,S8B18,barcode02,29,Cutibacterium acnes,RAB204
+20220322,aDNA,Cacnes-3-16S,500CFU,818,18,34,Cacnes-3-16S,S8B18,barcode03,29,Cutibacterium acnes,RAB204
+20220322,aDNA,Cacnes-1-16S,5000CFU,818,18,34,Cacnes-1-16S,S8B18,barcode04,29,Cutibacterium acnes,RAB204
+20220322,aDNA,Cacnes-2-16S,5000CFU,818,18,34,Cacnes-2-16S,S8B18,barcode05,29,Cutibacterium acnes,RAB204
+20220322,aDNA,Cacnes-3-16S,5000CFU,818,18,34,Cacnes-3-16S,S8B18,barcode06,29,Cutibacterium acnes,RAB204
+20220322,aDNA,TC-Cacnes-1-16S,500CFU,818,18,34,TC-Cacnes-1-16S,S8B18,barcode07,29,Cutibacterium acnes,RAB204
+20220322,aDNA,TC-Cacnes-2-16S,500CFU,818,18,34,TC-Cacnes-2-16S,S8B18,barcode08,29,Cutibacterium acnes,RAB204
+20220322,aDNA,TC-Cacnes-3-16S,500CFU,818,18,34,TC-Cacnes-3-16S,S8B18,barcode09,29,Cutibacterium acnes,RAB204
+20220322,aDNA,TC-Cacnes-1-16S,5000CFU,818,18,34,TC-Cacnes-1-16S,S8B18,barcode10,29,Cutibacterium acnes,RAB204
+20220322,aDNA,TC-Cacnes-2-16S,5000CFU,818,18,34,TC-Cacnes-2-16S,S8B18,barcode11,29,Cutibacterium acnes,RAB204
+20220322,aDNA,TC-Cacnes-3-16S,5000CFU,818,18,34,TC-Cacnes-3-16S,S8B18,barcode12,29,Cutibacterium acnes,RAB204
+20220322,aDNA,Saureus-1-16S,10CFU,819,18,33,Saureus-1-16S,S8B19,barcode01,29,Staphylococcus aureus,RAB204
+20220322,aDNA,Saureus-2-16S,10CFU,819,18,33,Saureus-2-16S,S8B19,barcode02,29,Staphylococcus aureus,RAB204
+20220322,aDNA,Saureus-3-16S,10CFU,819,18,33,Saureus-3-16S,S8B19,barcode03,29,Staphylococcus aureus,RAB204
+20220322,aDNA,Saureus-1-16S,100CFU,819,18,33,Saureus-1-16S,S8B19,barcode04,29,Staphylococcus aureus,RAB204
+20220322,aDNA,Saureus-2-16S,100CFU,819,18,33,Saureus-2-16S,S8B19,barcode05,29,Staphylococcus aureus,RAB204
+20220322,aDNA,Saureus-3-16S,100CFU,819,18,33,Saureus-3-16S,S8B19,barcode06,29,Staphylococcus aureus,RAB204
+20220322,aDNA,TC-Saureus-1-16S,10CFU,819,18,33,TC-Saureus-1-16S,S8B19,barcode07,29,Staphylococcus aureus,RAB204
+20220322,aDNA,TC-Saureus-2-16S,10CFU,819,18,33,TC-Saureus-2-16S,S8B19,barcode08,29,Staphylococcus aureus,RAB204
+20220322,aDNA,TC-Saureus-3-16S,10CFU,819,18,33,TC-Saureus-3-16S,S8B19,barcode09,29,Staphylococcus aureus,RAB204
+20220322,aDNA,TC-Saureus-1-16S,100CFU,819,18,33,TC-Saureus-1-16S,S8B19,barcode10,29,Staphylococcus aureus,RAB204
+20220322,aDNA,TC-Saureus-2-16S,100CFU,819,18,33,TC-Saureus-2-16S,S8B19,barcode11,29,Staphylococcus aureus,RAB204
+20220322,aDNA,TC-Saureus-3-16S,100CFU,819,18,33,TC-Saureus-3-16S,S8B19,barcode12,29,Staphylococcus aureus,RAB204
+20220323,DNA,Cacnes-1,500CFU,820,18,35,Cacnes-1,S8B20,barcode01,0,Cutibacterium acnes,RBK004
+20220323,DNA,Cacnes-2,500CFU,820,18,35,Cacnes-2,S8B20,barcode02,0,Cutibacterium acnes,RBK004
+20220323,DNA,Cacnes-3,500CFU,820,18,35,Cacnes-3,S8B20,barcode03,0,Cutibacterium acnes,RBK004
+20220323,DNA,Cacnes-1,5000CFU,820,18,35,Cacnes-1,S8B20,barcode04,0,Cutibacterium acnes,RBK004
+20220323,DNA,Cacnes-2,5000CFU,820,18,35,Cacnes-2,S8B20,barcode05,0,Cutibacterium acnes,RBK004
+20220323,DNA,Cacnes-3,5000CFU,820,18,35,Cacnes-3,S8B20,barcode06,0,Cutibacterium acnes,RBK004
+20220323,DNA,TC-Cacnes-1,500CFU,820,18,35,TC-Cacnes-1,S8B20,barcode07,0,Cutibacterium acnes,RBK004
+20220323,DNA,TC-Cacnes-2,500CFU,820,18,35,TC-Cacnes-2,S8B20,barcode08,0,Cutibacterium acnes,RBK004
+20220323,DNA,TC-Cacnes-3,500CFU,820,18,35,TC-Cacnes-3,S8B20,barcode09,0,Cutibacterium acnes,RBK004
+20220323,DNA,TC-Cacnes-1,5000CFU,820,18,35,TC-Cacnes-1,S8B20,barcode10,0,Cutibacterium acnes,RBK004
+20220323,DNA,TC-Cacnes-2,5000CFU,820,18,35,TC-Cacnes-2,S8B20,barcode11,0,Cutibacterium acnes,RBK004
+20220323,DNA,TC-Cacnes-3,5000CFU,820,18,35,TC-Cacnes-3,S8B20,barcode12,0,Cutibacterium acnes,RBK004
 20220323,DNA,Saureus-1,10CFU,821,18,36,guppy-demux,S8B21,barcode01,0,Staphylococcus aureus,RBK004
 20220323,DNA,Saureus-2,10CFU,821,18,36,guppy-demux,S8B21,barcode02,0,Staphylococcus aureus,RBK004
 20220323,DNA,Saureus-3,10CFU,821,18,36,guppy-demux,S8B21,barcode03,0,Staphylococcus aureus,RBK004
@@ -260,3 +260,177 @@ date,NA,strain,concentration_CFU,batch,duration_h,Flowcell_no,Sample_original,Id
 20220420,aDNA,TC-Bsubtilis-1-16S,100CFU,823,18,37,guppy-demux,S8B23,barcode10,29,Bacillus subtilis,RAB204
 20220420,aDNA,TC-Bsubtilis-2-16S,100CFU,823,18,37,guppy-demux,S8B23,barcode11,29,Bacillus subtilis,RAB204
 20220420,aDNA,TC-Bsubtilis-3-16S,100CFU,823,18,37,guppy-demux,S8B23,barcode12,29,Bacillus subtilis,RAB204
+20220712,aDNA,Klebpneu-16S-1-PS,10CFU,829,18,39,guppy-demux,S8B29,barcode01,29,"Klebsiella pneumoniae, Powersoil",RAB204
+20220712,aDNA,Klebpneu-16S-2-PS,10CFU,829,18,39,guppy-demux,S8B29,barcode02,29,"Klebsiella pneumoniae, Powersoil",RAB204
+20220712,aDNA,Klebpneu-16S-3-PS,10CFU,829,18,39,guppy-demux,S8B29,barcode03,29,"Klebsiella pneumoniae, Powersoil",RAB204
+20220712,aDNA,Klebpneu-16S-1-PS,100CFU,829,18,39,guppy-demux,S8B29,barcode04,29,"Klebsiella pneumoniae, Powersoil",RAB204
+20220712,aDNA,Klebpneu-16S-2-PS,100CFU,829,18,39,guppy-demux,S8B29,barcode05,29,"Klebsiella pneumoniae, Powersoil",RAB204
+20220712,aDNA,Klebpneu-16S-3-PS,100CFU,829,18,39,guppy-demux,S8B29,barcode06,29,"Klebsiella pneumoniae, Powersoil",RAB204
+20220712,aDNA,Klebpneu-16S-2-PB,10CFU,829,18,39,guppy-demux,S8B29,barcode08,29,"Klebsiella pneumoniae, Power biofilm",RAB204
+20220712,aDNA,Klebpneu-16S-3-PB,10CFU,829,18,39,guppy-demux,S8B29,barcode09,29,"Klebsiella pneumoniae, Power biofilm",RAB204
+20220712,aDNA,Klebpneu-16S-1-PB,100CFU,829,18,39,guppy-demux,S8B29,barcode10,29,"Klebsiella pneumoniae, Power biofilm",RAB204
+20220712,aDNA,Klebpneu-16S-2-PB,100CFU,829,18,39,guppy-demux,S8B29,barcode11,29,"Klebsiella pneumoniae, Power biofilm",RAB204
+20220712,aDNA,Klebpneu-16S-3-PB,100CFU,829,18,39,guppy-demux,S8B29,barcode12,29,"Klebsiella pneumoniae, Power biofilm",RAB204
+20220712,aDNA,PaeruginosaPAO1-1-16S,10CFU,828,18,39,guppy-demux,S8B28,barcode07,29,Pseudomonas aeruginosa PAO1,RAB204
+20220712,aDNA,PaeruginosaPAO1-2-16S,10CFU,828,18,39,guppy-demux,S8B28,barcode08,29,Pseudomonas aeruginosa PAO1,RAB204
+20220712,aDNA,PaeruginosaPAO1-1-16S,100CFU,828,18,39,guppy-demux,S8B28,barcode09,29,Pseudomonas aeruginosa PAO1,RAB204
+20220712,aDNA,PaeruginosaPAO1-2-16S,100CFU,828,18,39,guppy-demux,S8B28,barcode10,29,Pseudomonas aeruginosa PAO1,RAB204
+20220712,aDNA,PaeruginosaPAO1-1-16S,1000CFU,828,18,39,guppy-demux,S8B28,barcode11,29,Pseudomonas aeruginosa PAO1,RAB204
+20220712,aDNA,PaeruginosaPAO1-2-16S,1000CFU,828,18,39,guppy-demux,S8B28,barcode12,29,Pseudomonas aeruginosa PAO1,RAB204
+20220712,aDNA,Cacnes-1-16S,10CFU,827,18,38,guppy-demux,S8B27,barcode01,29,Cutibacterium acnes,RAB204
+20220712,aDNA,Cacnes-2-16S,10CFU,827,18,38,guppy-demux,S8B27,barcode02,29,Cutibacterium acnes,RAB204
+20220712,aDNA,Cacnes-3-16S,10CFU,827,18,38,guppy-demux,S8B27,barcode03,29,Cutibacterium acnes,RAB204
+20220712,aDNA,TC-Cacnes-1-16S,10CFU,827,18,38,guppy-demux,S8B27,barcode04,29,Cutibacterium acnes,RAB204
+20220712,aDNA,TC-Cacnes-2-16S,10CFU,827,18,38,guppy-demux,S8B27,barcode05,29,Cutibacterium acnes,RAB204
+20220712,aDNA,TC-Cacnes-3-16S,10CFU,827,18,38,guppy-demux,S8B27,barcode06,29,Cutibacterium acnes,RAB204
+20220712,aDNA,Cacnes-1-16S,100CFU,827,18,38,guppy-demux,S8B27,barcode07,29,Cutibacterium acnes,RAB204
+20220712,aDNA,Cacnes-2-16S,100CFU,827,18,38,guppy-demux,S8B27,barcode08,29,Cutibacterium acnes,RAB204
+20220712,aDNA,Cacnes-3-16S,100CFU,827,18,38,guppy-demux,S8B27,barcode09,29,Cutibacterium acnes,RAB204
+20220712,aDNA,TC-Cacnes-1-16S,100CFU,827,18,38,guppy-demux,S8B27,barcode10,29,Cutibacterium acnes,RAB204
+20220712,aDNA,TC-Cacnes-2-16S,100CFU,827,18,38,guppy-demux,S8B27,barcode11,29,Cutibacterium acnes,RAB204
+20220712,aDNA,TC-Cacnes-3-16S,100CFU,827,18,38,guppy-demux,S8B27,barcode12,29,Cutibacterium acnes,RAB204
+20220712,aDNA,Paeruginosa-9027-1-16S,10CFU,830,18,40,guppy-demux,S8B30,barcode01,29,Pseudomonas aeruginosa 9027,RAB204
+20220712,aDNA,Paeruginosa-9027-2-16S,10CFU,830,18,40,guppy-demux,S8B30,barcode02,29,Pseudomonas aeruginosa 9027,RAB204
+20220712,aDNA,Paeruginosa-9027-3-16S,10CFU,830,18,40,guppy-demux,S8B30,barcode03,29,Pseudomonas aeruginosa 9027,RAB204
+20220712,aDNA,TC-Paeruginosa-9027-1-16S,10CFU,830,18,40,guppy-demux,S8B30,barcode04,29,Pseudomonas aeruginosa 9027,RAB204
+20220712,aDNA,TC-Paeruginosa-9027-2-16S,10CFU,830,18,40,guppy-demux,S8B30,barcode05,29,Pseudomonas aeruginosa 9027,RAB204
+20220712,aDNA,TC-Paeruginosa-9027-3-16S,10CFU,830,18,40,guppy-demux,S8B30,barcode06,29,Pseudomonas aeruginosa 9027,RAB204
+20220712,aDNA,Paeruginosa-9027-1-16S,100CFU,830,18,40,guppy-demux,S8B30,barcode07,29,Pseudomonas aeruginosa 9027,RAB204
+20220712,aDNA,Paeruginosa-9027-2-16S,100CFU,830,18,40,guppy-demux,S8B30,barcode08,29,Pseudomonas aeruginosa 9027,RAB204
+20220712,aDNA,Paeruginosa-9027-3-16S,100CFU,830,18,40,guppy-demux,S8B30,barcode09,29,Pseudomonas aeruginosa 9027,RAB204
+20220712,aDNA,TC-Paeruginosa-9027-1-16S,100CFU,830,18,40,guppy-demux,S8B30,barcode10,29,Pseudomonas aeruginosa 9027,RAB204
+20220712,aDNA,TC-Paeruginosa-9027-2-16S,100CFU,830,18,40,guppy-demux,S8B30,barcode11,29,Pseudomonas aeruginosa 9027,RAB204
+20220712,aDNA,TC-Paeruginosa-9027-3-16S,100CFU,830,18,40,guppy-demux,S8B30,barcode12,29,Pseudomonas aeruginosa 9027,RAB204
+20220801,aDNA,clostsporogenes-1-16S,10CFU,831,18,42,guppy-demux,S8B31,barcode01,29,Clostridium sporogenes,RAB204
+20220801,aDNA,clostsporogenes-2-16S,10CFU,831,18,42,guppy-demux,S8B31,barcode02,29,Clostridium sporogenes,RAB204
+20220801,aDNA,clostsporogenes-3-16S,10CFU,831,18,42,guppy-demux,S8B31,barcode03,29,Clostridium sporogenes,RAB204
+20220801,aDNA,TC-clostsporogenes-1-16S,10CFU,831,18,42,guppy-demux,S8B31,barcode04,29,Clostridium sporogenes,RAB204
+20220801,aDNA,TC-clostsporogenes-2-16S,10CFU,831,18,42,guppy-demux,S8B31,barcode05,29,Clostridium sporogenes,RAB204
+20220801,aDNA,TC-clostsporogenes-3-16S,10CFU,831,18,42,guppy-demux,S8B31,barcode06,29,Clostridium sporogenes,RAB204
+20220801,aDNA,clostsporogenes-1-16S,100CFU,831,18,42,guppy-demux,S8B31,barcode07,29,Clostridium sporogenes,RAB204
+20220801,aDNA,clostsporogenes-2-16S,100CFU,831,18,42,guppy-demux,S8B31,barcode08,29,Clostridium sporogenes,RAB204
+20220801,aDNA,clostsporogenes-3-16S,100CFU,831,18,42,guppy-demux,S8B31,barcode09,29,Clostridium sporogenes,RAB204
+20220801,aDNA,TC-clostsporogenes-1-16S,100CFU,831,18,42,guppy-demux,S8B31,barcode10,29,Clostridium sporogenes,RAB204
+20220801,aDNA,TC-clostsporogenes-2-16S,100CFU,831,18,42,guppy-demux,S8B31,barcode11,29,Clostridium sporogenes,RAB204
+20220801,aDNA,TC-clostsporogenes-3-16S,100CFU,831,18,42,guppy-demux,S8B31,barcode12,29,Clostridium sporogenes,RAB204
+20220823,aDNA,Calbicans-1-18S,100CFU,834,6,42,guppy-demux,S8B34,barcode01,29,"Candida albicans, 18S",RBK004
+20220823,aDNA,Calbicans-2-18S,100CFU,834,6,42,guppy-demux,S8B34,barcode02,29,"Candida albicans, 18S",RBK004
+20220823,aDNA,Calbicans-3-18S,100CFU,834,6,42,guppy-demux,S8B34,barcode03,29,"Candida albicans, 18S",RBK004
+20220823,aDNA,TC-Calbicans-1-18S,100CFU,834,6,42,guppy-demux,S8B34,barcode04,29,"Candida albicans, 18S",RBK004
+20220823,aDNA,TC-Calbicans-2-18S,100CFU,834,6,42,guppy-demux,S8B34,barcode05,29,"Candida albicans, 18S",RBK004
+20220823,aDNA,TC-Calbicans-3-18S,100CFU,834,6,42,guppy-demux,S8B34,barcode06,29,"Candida albicans, 18S",RBK004
+20220823,aDNA,Plain-medium-18S,0CFU,834,6,42,guppy-demux,S8B34,barcode08,29,"Candida albicans, 18S",RBK004
+20220823,aDNA,Tcells-18S,0CFU,834,6,42,guppy-demux,S8B34,barcode07,29,"Candida albicans, 18S",RBK004
+20220823,aDNA,Calbicans-1-18S,10CFU,833,12,42,guppy-demux,S8B33,barcode01,29,"Candida albicans, 18S",RBK004
+20220823,aDNA,Calbicans-2-18S,10CFU,833,12,42,guppy-demux,S8B33,barcode02,29,"Candida albicans, 18S",RBK004
+20220823,aDNA,Calbicans-3-18S,10CFU,833,12,42,guppy-demux,S8B33,barcode03,29,"Candida albicans, 18S",RBK004
+20220823,aDNA,TC-Calbicans-1-18S,10CFU,833,12,42,guppy-demux,S8B33,barcode04,29,"Candida albicans, 18S",RBK004
+20220823,aDNA,TC-Calbicans-2-18S,10CFU,833,12,42,guppy-demux,S8B33,barcode05,29,"Candida albicans, 18S",RBK004
+20220823,aDNA,TC-Calbicans-3-18S,10CFU,833,12,42,guppy-demux,S8B33,barcode06,29,"Candida albicans, 18S",RBK004
+20220823,aDNA,Cell-free-medium-18S,0CFU,833,12,42,guppy-demux,S8B33,barcode07,29,"Candida albicans, 18S",RBK004
+20210512,aDNA,CalbicansUnfiltTC,27300000CFU,78,12,21,,S7B8,barcode01,29,Candida albicans,RBK004
+20210512,aDNA,CalbicansUnfiltTC,2730000CFU,78,12,21,,S7B8,barcode02,29,Candida albicans,RBK004
+20210512,aDNA,CalbicansUnfiltTC,273000CFU,78,12,21,,S7B8,barcode03,29,Candida albicans,RBK004
+20210512,aDNA,CalbicansUnfiltTC,27300CFU,78,12,21,,S7B8,barcode04,29,Candida albicans,RBK004
+20210512,aDNA,CalbicansUnfiltTC,2730CFU,78,12,21,,S7B8,barcode05,29,Candida albicans,RBK004
+20210512,aDNA,CalbicansUnfiltTC,273CFU,78,12,21,,S7B8,barcode06,29,Candida albicans,RBK004
+20210512,aDNA,CalbicansUnfiltTC,27CFU,78,12,21,,S7B8,barcode07,29,Candida albicans,RBK004
+20210512,aDNA,CalbicansUnfiltTC,3CFU,78,12,21,,S7B8,barcode08,29,Candida albicans,RBK004
+20210906,DNA,Calbicans,2000000CFU,85,24,26,Calbicans,S8B5,barcode01,0,Candida albicans,RBK004
+20210906,DNA,Calbicans,100CFU,85,24,26,Calbicans,S8B5,barcode02,0,Candida albicans,RBK004
+20210906,DNA,Calbicans,20CFU,85,24,26,Calbicans,S8B5,barcode03,0,Candida albicans,RBK004
+20210906,DNA,Calbicans,10CFU,85,24,26,Calbicans,S8B5,barcode04,0,Candida albicans,RBK004
+20210906,aDNA,Calbicans,2000000CFU,85,24,26,Calbicans,S8B5,barcode05,29,Candida albicans,RBK004
+20210906,aDNA,Calbicans,100CFU,85,24,26,Calbicans,S8B5,barcode11,29,Candida albicans,RBK004
+20210906,aDNA,Calbicans,20CFU,85,24,26,Calbicans,S8B5,barcode07,29,Candida albicans,RBK004
+20210906,aDNA,Calbicans,10CFU,85,24,26,Calbicans,S8B5,barcode08,29,Candida albicans,RBK004
+20211122,DNA,Calbicans-1,10CFU,87,18,28,Calbicans-1,S8B7,barcode01,0,Candida albicans,RBK004
+20211122,DNA,Calbicans-2,10CFU,87,18,28,Calbicans-2,S8B7,barcode02,0,Candida albicans,RBK004
+20211122,DNA,Calbicans-3,10CFU,87,18,28,Calbicans-3,S8B7,barcode03,0,Candida albicans,RBK004
+20211122,DNA,Calbicans-1,100CFU,87,18,28,Calbicans-1,S8B7,barcode04,0,Candida albicans,RBK004
+20211122,DNA,Calbicans-2,100CFU,87,18,28,Calbicans-2,S8B7,barcode05,0,Candida albicans,RBK004
+20211122,DNA,Calbicans-3,100CFU,87,18,28,Calbicans-3,S8B7,barcode06,0,Candida albicans,RBK004
+20211122,DNA,Calbicans-1,1000CFU,87,18,28,Calbicans-1,S8B7,barcode07,0,Candida albicans,RBK004
+20211122,DNA,Calbicans-2,1000CFU,87,18,28,Calbicans-2,S8B7,barcode08,0,Candida albicans,RBK004
+20211122,DNA,Calbicans-3,1000CFU,87,18,28,Calbicans-3,S8B7,barcode09,0,Candida albicans,RBK004
+20211122,DNA,Calbicans-1,10000CFU,87,18,28,Calbicans-1,S8B7,barcode10,0,Candida albicans,RBK004
+20211122,DNA,Calbicans-2,10000CFU,87,18,28,Calbicans-2,S8B7,barcode11,0,Candida albicans,RBK004
+20211122,DNA,Calbicans-3,10000CFU,87,18,28,Calbicans-3,S8B7,barcode12,0,Candida albicans,RBK004
+20211122,aDNA,Calbicans-18S-1,10CFU,88,18,29,Calbicans-18S-1,S8B8,barcode01,29,Candida albicans,RBK004
+20211122,aDNA,Calbicans-18S-2,10CFU,88,18,29,Calbicans-18S-2,S8B8,barcode02,29,Candida albicans,RBK004
+20211122,aDNA,Calbicans-18S-3,10CFU,88,18,29,Calbicans-18S-3,S8B8,barcode03,29,Candida albicans,RBK004
+20211122,aDNA,Calbicans-18S-1,100CFU,88,18,29,Calbicans-18S-1,S8B8,barcode04,29,Candida albicans,RBK004
+20211122,aDNA,Calbicans-18S-2,100CFU,88,18,29,Calbicans-18S-2,S8B8,barcode05,29,Candida albicans,RBK004
+20211122,aDNA,Calbicans-18S-3,100CFU,88,18,29,Calbicans-18S-3,S8B8,barcode06,29,Candida albicans,RBK004
+20211122,aDNA,Calbicans-18S-1,1000CFU,88,18,29,Calbicans-18S-1,S8B8,barcode07,29,Candida albicans,RBK004
+20211122,aDNA,Calbicans-18S-2,1000CFU,88,18,29,Calbicans-18S-2,S8B8,barcode08,29,Candida albicans,RBK004
+20211122,aDNA,Calbicans-18S-3,1000CFU,88,18,29,Calbicans-18S-3,S8B8,barcode09,29,Candida albicans,RBK004
+20211122,aDNA,Calbicans-18S-1,10000CFU,88,18,29,Calbicans-18S-1,S8B8,barcode10,29,Candida albicans,RBK004
+20211122,aDNA,Calbicans-18S-2,10000CFU,88,18,29,Calbicans-18S-2,S8B8,barcode11,29,Candida albicans,RBK004
+20211122,aDNA,Calbicans-18S-3,10000CFU,88,18,29,Calbicans-18S-3,S8B8,barcode12,29,Candida albicans,RBK004
+20211123,DNA,TC-Calbicans-1,10CFU,811,18,29,TC-Calbicans-1,S8B11,barcode01,0,Candida albicans,RBK004
+20211123,DNA,TC-Calbicans-2,10CFU,811,18,29,TC-Calbicans-2,S8B11,barcode02,0,Candida albicans,RBK004
+20211123,DNA,TC-Calbicans-3,10CFU,811,18,29,TC-Calbicans-3,S8B11,barcode03,0,Candida albicans,RBK004
+20211123,DNA,TC-Calbicans-1,100CFU,811,18,29,TC-Calbicans-1,S8B11,barcode04,0,Candida albicans,RBK004
+20211123,DNA,TC-Calbicans-2,100CFU,811,18,29,TC-Calbicans-2,S8B11,barcode05,0,Candida albicans,RBK004
+20211123,DNA,TC-Calbicans-3,100CFU,811,18,29,TC-Calbicans-3,S8B11,barcode06,0,Candida albicans,RBK004
+20211123,DNA,TC-Calbicans-1,1000CFU,811,18,29,TC-Calbicans-1,S8B11,barcode07,0,Candida albicans,RBK004
+20211123,DNA,TC-Calbicans-2,1000CFU,811,18,29,TC-Calbicans-2,S8B11,barcode08,0,Candida albicans,RBK004
+20211123,DNA,TC-Calbicans-3,1000CFU,811,18,29,TC-Calbicans-3,S8B11,barcode09,0,Candida albicans,RBK004
+20211123,DNA,TC-Calbicans-1,10000CFU,811,18,29,TC-Calbicans-1,S8B11,barcode10,0,Candida albicans,RBK004
+20211123,DNA,TC-Calbicans-2,10000CFU,811,18,29,TC-Calbicans-2,S8B11,barcode11,0,Candida albicans,RBK004
+20211123,DNA,TC-Calbicans-3,10000CFU,811,18,29,TC-Calbicans-3,S8B11,barcode12,0,Candida albicans,RBK004
+20211123,aDNA,TC-Calbicans-18S-1,10CFU,812,18,30,TC-Calbicans-18S-1,S8B12,barcode01,29,Candida albicans,RBK004
+20211123,aDNA,TC-Calbicans-18S-2,10CFU,812,18,30,TC-Calbicans-18S-2,S8B12,barcode02,29,Candida albicans,RBK004
+20211123,aDNA,TC-Calbicans-18S-3,10CFU,812,18,30,TC-Calbicans-18S-3,S8B12,barcode03,29,Candida albicans,RBK004
+20211123,aDNA,TC-Calbicans-18S-1,100CFU,812,18,30,TC-Calbicans-18S-1,S8B12,barcode04,29,Candida albicans,RBK004
+20211123,aDNA,TC-Calbicans-18S-2,100CFU,812,18,30,TC-Calbicans-18S-2,S8B12,barcode05,29,Candida albicans,RBK004
+20211123,aDNA,TC-Calbicans-18S-3,100CFU,812,18,30,TC-Calbicans-18S-3,S8B12,barcode06,29,Candida albicans,RBK004
+20211123,aDNA,TC-Calbicans-18S-1,1000CFU,812,18,30,TC-Calbicans-18S-1,S8B12,barcode07,29,Candida albicans,RBK004
+20211123,aDNA,TC-Calbicans-18S-2,1000CFU,812,18,30,TC-Calbicans-18S-2,S8B12,barcode08,29,Candida albicans,RBK004
+20211123,aDNA,TC-Calbicans-18S-3,1000CFU,812,18,30,TC-Calbicans-18S-3,S8B12,barcode09,29,Candida albicans,RBK004
+20211123,aDNA,TC-Calbicans-18S-1,10000CFU,812,18,30,TC-Calbicans-18S-1,S8B12,barcode10,29,Candida albicans,RBK004
+20211123,aDNA,TC-Calbicans-18S-2,10000CFU,812,18,30,TC-Calbicans-18S-2,S8B12,barcode11,29,Candida albicans,RBK004
+20211123,aDNA,TC-Calbicans-18S-3,10000CFU,812,18,30,TC-Calbicans-18S-3,S8B12,barcode12,29,Candida albicans,RBK004
+20220926,aDNA,Plain-medium-16S,0CFU,836,3,47,guppy-demux,,barcode08,29,,RAB204
+20220926,aDNA,Tcells-16S,0CFU,836,3,47,guppy-demux,,barcode11,29,,RAB204
+20220926,aDNA,Cell-free-medium-16S,0CFU,836,3,47,guppy-demux,,barcode10,29,,RAB204
+20220926,aDNA,Plain-medium-18S,0CFU,837,12,47,guppy-demux,,barcode08,29,,RBK004
+20220926,aDNA,Tcells-18S,0CFU,837,12,47,guppy-demux,,barcode11,29,,RBK004
+20220926,aDNA,Cell-free-medium-18S,0CFU,837,12,47,guppy-demux,,barcode10,29,,RBK004
+20220930,aDNA,PaeruginosaPAO1-1-16S,10CFU,838,12,45,guppy-demux,S8B38,barcode01,29,Pseudomonas aeruginosa PAO1,RAB204
+20220930,aDNA,PaeruginosaPAO1-2-16S,10CFU,838,12,45,guppy-demux,S8B38,barcode02,29,Pseudomonas aeruginosa PAO1,RAB204
+20220930,aDNA,PaeruginosaPAO1-3-16S,10CFU,838,12,45,guppy-demux,S8B38,barcode03,29,Pseudomonas aeruginosa PAO1,RAB204
+20220930,aDNA,TC-PaeruginosaPAO1-1-16S,10CFU,838,12,45,guppy-demux,S8B38,barcode04,29,Pseudomonas aeruginosa PAO1,RAB204
+20220930,aDNA,TC-PaeruginosaPAO1-2-16S,10CFU,838,12,45,guppy-demux,S8B38,barcode05,29,Pseudomonas aeruginosa PAO1,RAB204
+20220930,aDNA,TC-PaeruginosaPAO1-3-16S,10CFU,838,12,45,guppy-demux,S8B38,barcode06,29,Pseudomonas aeruginosa PAO1,RAB204
+20220930,aDNA,PaeruginosaPAO1-1-16S,100CFU,838,12,45,guppy-demux,S8B38,barcode07,29,Pseudomonas aeruginosa PAO1,RAB204
+20220930,aDNA,PaeruginosaPAO1-2-16S,100CFU,838,12,45,guppy-demux,S8B38,barcode08,29,Pseudomonas aeruginosa PAO1,RAB204
+20220930,aDNA,PaeruginosaPAO1-3-16S,100CFU,838,12,45,guppy-demux,S8B38,barcode09,29,Pseudomonas aeruginosa PAO1,RAB204
+20220930,aDNA,TC-PaeruginosaPAO1-1-16S,100CFU,838,12,45,guppy-demux,S8B38,barcode10,29,Pseudomonas aeruginosa PAO1,RAB204
+20220930,aDNA,TC-PaeruginosaPAO1-2-16S,100CFU,838,12,45,guppy-demux,S8B38,barcode11,29,Pseudomonas aeruginosa PAO1,RAB204
+20220930,aDNA,TC-PaeruginosaPAO1-3-16S,100CFU,838,12,45,guppy-demux,S8B38,barcode12,29,Pseudomonas aeruginosa PAO1,RAB204
+20221010,aDNA,PaeruginosaPAO1-1-16S,10CFU,840,12,47,guppy-demux,S8B40,barcode01,29,Pseudomonas aeruginosa PAO1,RAB204
+20221010,aDNA,PaeruginosaPAO1-2-16S,10CFU,840,12,47,guppy-demux,S8B40,barcode02,29,Pseudomonas aeruginosa PAO1,RAB204
+20221010,aDNA,PaeruginosaPAO1-3-16S,10CFU,840,12,47,guppy-demux,S8B40,barcode03,29,Pseudomonas aeruginosa PAO1,RAB204
+20221010,aDNA,TC-PaeruginosaPAO1-1-16S,10CFU,840,12,47,guppy-demux,S8B40,barcode04,29,Pseudomonas aeruginosa PAO1,RAB204
+20221010,aDNA,TC-PaeruginosaPAO1-2-16S,10CFU,840,12,47,guppy-demux,S8B40,barcode05,29,Pseudomonas aeruginosa PAO1,RAB204
+20221010,aDNA,TC-PaeruginosaPAO1-3-16S,10CFU,840,12,47,guppy-demux,S8B40,barcode06,29,Pseudomonas aeruginosa PAO1,RAB204
+20221010,aDNA,PaeruginosaPAO1-1-16S,100CFU,840,12,47,guppy-demux,S8B40,barcode07,29,Pseudomonas aeruginosa PAO1,RAB204
+20221010,aDNA,PaeruginosaPAO1-2-16S,100CFU,840,12,47,guppy-demux,S8B40,barcode08,29,Pseudomonas aeruginosa PAO1,RAB204
+20221010,aDNA,PaeruginosaPAO1-3-16S,100CFU,840,12,47,guppy-demux,S8B40,barcode09,29,Pseudomonas aeruginosa PAO1,RAB204
+20221010,aDNA,TC-PaeruginosaPAO1-1-16S,100CFU,840,12,47,guppy-demux,S8B40,barcode10,29,Pseudomonas aeruginosa PAO1,RAB204
+20221010,aDNA,TC-PaeruginosaPAO1-2-16S,100CFU,840,12,47,guppy-demux,S8B40,barcode11,29,Pseudomonas aeruginosa PAO1,RAB204
+20221010,aDNA,TC-PaeruginosaPAO1-3-16S,100CFU,840,12,47,guppy-demux,S8B40,barcode12,29,Pseudomonas aeruginosa PAO1,RAB204
+20221011,aDNA,PaeruginosaPAO1-1-16S,10CFU,841,12,47,guppy-demux,S8B41,barcode01,29,Pseudomonas aeruginosa PAO1,RAB204
+20221011,aDNA,PaeruginosaPAO1-2-16S,10CFU,841,12,47,guppy-demux,S8B41,barcode02,29,Pseudomonas aeruginosa PAO1,RAB204
+20221011,aDNA,PaeruginosaPAO1-3-16S,10CFU,841,12,47,guppy-demux,S8B41,barcode03,29,Pseudomonas aeruginosa PAO1,RAB204
+20221011,aDNA,TC-PaeruginosaPAO1-1-16S,10CFU,841,12,47,guppy-demux,S8B41,barcode04,29,Pseudomonas aeruginosa PAO1,RAB204
+20221011,aDNA,TC-PaeruginosaPAO1-2-16S,10CFU,841,12,47,guppy-demux,S8B41,barcode05,29,Pseudomonas aeruginosa PAO1,RAB204
+20221011,aDNA,TC-PaeruginosaPAO1-3-16S,10CFU,841,12,47,guppy-demux,S8B41,barcode06,29,Pseudomonas aeruginosa PAO1,RAB204
+20221011,aDNA,PaeruginosaPAO1-1-16S,100CFU,841,12,47,guppy-demux,S8B41,barcode07,29,Pseudomonas aeruginosa PAO1,RAB204
+20221011,aDNA,PaeruginosaPAO1-2-16S,100CFU,841,12,47,guppy-demux,S8B41,barcode08,29,Pseudomonas aeruginosa PAO1,RAB204
+20221011,aDNA,PaeruginosaPAO1-3-16S,100CFU,841,12,47,guppy-demux,S8B41,barcode09,29,Pseudomonas aeruginosa PAO1,RAB204
+20221011,aDNA,TC-PaeruginosaPAO1-1-16S,100CFU,841,12,47,guppy-demux,S8B41,barcode10,29,Pseudomonas aeruginosa PAO1,RAB204
+20221011,aDNA,TC-PaeruginosaPAO1-2-16S,100CFU,841,12,47,guppy-demux,S8B41,barcode11,29,Pseudomonas aeruginosa PAO1,RAB204
+20221011,aDNA,TC-PaeruginosaPAO1-3-16S,100CFU,841,12,47,guppy-demux,S8B41,barcode12,29,Pseudomonas aeruginosa PAO1,RAB204

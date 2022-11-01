@@ -1,9 +1,0 @@
-﻿date,NA,strain,concentration_CFU,batch,duration_h,Flowcell_no,Sample_original,Identifier,Barcode,Total_cycles,Spike_species
-20210407,aRNA,PAO1unfiltTCPA,38700000CFU,1,12,21,Unfiltered 1:7 TC/PA RNA,S7B7,barcode01,29,Pseudomonas aeruginosa
-20210407,aRNA,PAO1unfiltTCPA,3870000CFU,1,12,21,Unfiltered 1:70 TC/PA RNA,S7B7,barcode02,29,Pseudomonas aeruginosa
-20210407,aRNA,PAO1unfiltTCPA,387000CFU,1,12,21,Unfiltered 1:700 TC/PA RNA,S7B7,barcode03,29,Pseudomonas aeruginosa
-20210407,aRNA,PAO1unfiltTCPA,38700CFU,1,12,21,Unfiltered 1:7000 TC/PA RNA,S7B7,barcode04,29,Pseudomonas aeruginosa
-20210407,aRNA,PAO1unfiltTCPA,3870CFU,1,12,21,Unfiltered 1:70000 TC/PA RNA,S7B7,barcode05,29,Pseudomonas aeruginosa
-20210407,aRNA,PAO1unfiltTCPA,387CFU,1,12,21,Unfiltered 1:700000 TC/PA RNA,S7B7,barcode06,29,Pseudomonas aeruginosa
-20210407,aRNA,PAO1unfiltTCPA,39CFU,1,12,21,Unfiltered 1:7000000 TC/PA RNA,S7B7,barcode07,29,Pseudomonas aeruginosa
-20210407,aRNA,PAO1unfiltTCPA,4CFU,1,12,21,Unfiltered 1:70000000 TC/PA RNA,S7B7,barcode08,29,Pseudomonas aeruginosa

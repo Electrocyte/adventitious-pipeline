@@ -1,7 +1,0 @@
-date,NA,strain,concentration_CFU,batch,duration_h,Flowcell_no,Sample_original,Identifier,Barcode,Total_cycles,Spike_species,Kit
-20220321,DNA,working-bio-filter-chips-1-rapid-kit,10CFU,8,15,,guppy-demux,S8B0,barcode01,0,Unknown,RBK004
-20220321,DNA,working-bio-filter-chips-2-rapid-kit,10CFU,8,15,,guppy-demux,S8B0,barcode02,0,Unknown,RBK004
-20220321,DNA,unused-bio-filter-chips-2-rapid-kit,10CFU,8,15,,guppy-demux,S8B0,barcode03,0,Unknown,RBK004
-20220324,DNA,sump-rapid-kit,10CFU,9,5,,guppy-demux,S9B0,barcode04,0,Unknown,RBK004
-20220324,DNA,drum-tank-1-rapid-kit,10CFU,9,5,,guppy-demux,S9B0,barcode05,0,Unknown,RBK004
-20220324,DNA,drum-tank-2-rapid-kit,10CFU,9,5,,guppy-demux,S9B0,barcode06,0,Unknown,RBK004

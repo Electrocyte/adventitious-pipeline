@@ -10,21 +10,63 @@ Created on Mon Jul 25 10:26:48 2022
 
 from pathlib import Path
 import pandas as pd
-from pipeline import preprocess_unseen_data, ML_assessment  
+from pipeline import preprocess_unseen_data, ML_assessment, xgboost_data_cleaning, PCA 
     
-unseen_dir = "D:/Dropbox/AA SMART/fourier_data/"
+json_dir = "D:/Dropbox/AA SMART/fourier_data/"
+github_loc = "D:/GitHub/SMART-CAMP/"
+map_files = "D:/SequencingData/Centrifuge_libraries/v_f_b2/"
+
+v_f_b = False
+v_f_b2 = True
+
+if v_f_b:
+    # sample_folder = "2022-07-12-fix"
+    # json_mask = "2022-07.json"
+    
+    # sample_folder = "2022-08-01"
+    # json_mask = "2022-08-01.json"
+    
+    sample_folder = "2022-08-23"
+    json_mask = "2022-08-23.json"
+    
+    species = {"Pseudomonas aeruginosa":["PA", "9027"], "Cutibacterium acnes":["Cacnes","Pacnes"], \
+                "Escherichia coli":["EC"], "Klebsiella pneumoniae":["Klebpneu"], \
+                   "Candida ":["Calbicans"], "Staphylococcus aureus":["Saureus"], \
+                    "Bacillus subtilis": ["Bsubtilis"], "Clostridium": ["clost"]}   
+    database_dict = {"v_f_b":"v_f_b"}
+
+if v_f_b2:
+    # sample_folder = "2022-07-08-vfb2"
+    # json_mask = "2022-07-08-vfb2.json"
+    
+    sample_folder = "2022-10-11"
+    json_mask = "2022-09-30-vfb2.json"
+    
+    species = {"Pseudomonas aeruginosa":["PA", "9027"], "Cutibacterium acnes":["Cacnes","Pacnes"], \
+                "Escherichia coli":["EC"], "Klebsiella pneumoniae":["Klebpneu"], \
+                  "Candida albicans":["Calbicans"], "Staphylococcus aureus":["Saureus"], \
+                    "Bacillus subtilis": ["Bsubtilis"], "Clostridium ": ["clost"]}   
+    database_dict = {"v_f_b2":"v_f_b2"}
+
+unseen_dir = f"{json_dir}{sample_folder}/"
 new_samples = 20220701
 
+
+data_aug = True
+gauss_noise = True
+transforms = False
+
 debug = True
+gscv = False
 # model location
 directory = "D:/SequencingData/Harmonisation/DNA/analysis/"
 _ML_out_ = f"{directory}/ML_training-VFB/"
 XGB_out = f"{_ML_out_}/OCS-XGBoost-VFB/"
 vees = 'PA-Cacnes-Pacnes-EC-Klebpneu-Calbicans-Saureus-Bsubtilis'
 
-database_dict = {"v_f_b":"v_f_b"}
 BLASTn_name = list(database_dict.keys())[0]
 kingdom = list(database_dict.values())[0]
+unseen = True
 
 # # SUBSET SAMPLES
 subset = True
@@ -36,9 +78,10 @@ Nanoplot = f"{unseen_dir}/nanoplot_summary_data.csv"
 BLAST =      f"{unseen_dir}/describe_{BLASTn_name}_no_host_all_agg.csv"
 Centrifuge = f"{unseen_dir}/centrifuge_{kingdom}_describe_meta.csv"
 
+
 if Path(BLAST).is_file():
     full_nano_cols, Centrifuge_df, Nanoplot_df, BLAST_df = preprocess_unseen_data.load_in_data(BLAST, Centrifuge, Nanoplot, kingdom, BLASTn_name)
-    
+
     Centrifuge_df["strain"] = Centrifuge_df["sample"].str.split(r"_", expand=True)[2]
     BLAST_df['sample'] = BLAST_df['date'].astype(str)+"_"+BLAST_df['NA']+"_"+BLAST_df['strain']+"_"+BLAST_df['concentration_CFU'].astype(str)+"_"+BLAST_df['batch'].astype(str)+"_"+BLAST_df['duration_h'].astype(str)
     
@@ -62,6 +105,9 @@ if Path(BLAST).is_file():
     # check if this is the lowest value in other data sets
     BLAST_df = BLAST_df.loc[BLAST_df["pident_max"] > 83]
     BLAST_df.reset_index(drop=True,inplace=True)
+
+    BLAST_df = xgboost_data_cleaning.label_kingdom_type(BLAST_df, github_loc, map_files, "sseqid")
+    Centrifuge_df = xgboost_data_cleaning.label_kingdom_type(Centrifuge_df, github_loc, map_files, "seqID")
 
     Centrifuge_df, BLAST_df = preprocess_unseen_data.count_for_cols(Centrifuge_df, BLAST_df, "std", "std_nans")
     Centrifuge_df = preprocess_unseen_data.value_added(Centrifuge_df, ["name", "sample"], "score_count")
@@ -91,7 +137,8 @@ if Path(BLAST).is_file():
        'mean_qscore_template_count', 'mean_qscore_template_mean',
        'mean_qscore_template_std', 'mean_qscore_template_min',
        'mean_qscore_template_25%', 'mean_qscore_template_50%',
-       'mean_qscore_template_75%', 'mean_qscore_template_max', 
+       'mean_qscore_template_75%', 'mean_qscore_template_max',
+       'viral_count', 'fungal_count', 'bacterial_count',
        'std_nans', 'name-sample-count', 'vc-name-sample-fraction', 'read_qc',
        'Activechannels', 'Meanreadlength', 'Meanreadquality',
        'Medianreadlength', 'Medianreadquality', 'Numberofreads',
@@ -113,7 +160,8 @@ if Path(BLAST).is_file():
        'mean_qscore_template_min', 'mean_qscore_template_25%',
        'mean_qscore_template_50%', 'mean_qscore_template_75%',
        'mean_qscore_template_max', 
-       'b_score', 'std_nans', 'name-sample-count',
+       'b_score', 'viral_count', 'fungal_count', 'bacterial_count',
+       'std_nans', 'name-sample-count',
        'vc-name-sample-fraction', 'read_qc', 'Activechannels',
        'Meanreadlength', 'Meanreadquality', 'Medianreadlength',
        'Medianreadquality', 'Numberofreads', 'ReadlengthN50', 'Totalbases']
@@ -139,26 +187,33 @@ unseen_df_ce.reset_index(inplace=True, drop=True)
 unseen_df_bn = bn_df.drop_duplicates(subset=bl_id_cols)
 unseen_df_bn.reset_index(inplace=True, drop=True)
 
-samp_pivot_ce, sample_status_ce = preprocess_unseen_data.run_unseen_sample_analysis("centrifuge", vees, XGB_out, ce_id_cols, debug, unseen_df_ce)
-samp_pivot_hs, sample_status_hs = preprocess_unseen_data.run_unseen_sample_analysis("BLAST", vees, XGB_out, bl_id_cols, debug, unseen_df_bn)
+if data_aug:
+    unseen_df_ce = xgboost_data_cleaning.data_aug(unseen_df_ce, 
+                                                  "centrifuge", XGB_out,
+                                                  gauss_noise, transforms)
+    unseen_df_bn = xgboost_data_cleaning.data_aug(unseen_df_bn, 
+                                                  "BLAST", XGB_out,
+                                                  gauss_noise, transforms)
 
-genuine_pivot_ce, genuine_status_ce = preprocess_unseen_data.run_unseen_genuine_analysis("centrifuge", vees, XGB_out, ce_id_cols, debug, unseen_df_ce, sample_status_ce)
-genuine_pivot_hs, genuine_status_hs = preprocess_unseen_data.run_unseen_genuine_analysis("BLAST", vees, XGB_out, bl_id_cols, debug, unseen_df_bn, sample_status_hs)
+try:
+    # %matplotlib qt
+    PCA.run(unseen_df_ce, "centrifuge", unseen, data_aug, XGB_out)
+    PCA.run(unseen_df_bn, "BLAST", unseen, data_aug, XGB_out)
+except:
+    pass
 
-# ML_assessment.calculate_twin_model_accuracy() requires implementation for the model to correctly predict the sterility status.
-#
-#
+samp_pivot_ce, sample_status_ce = preprocess_unseen_data.run_unseen_sample_analysis("centrifuge", vees, XGB_out, ce_id_cols, debug, unseen_df_ce, json_mask, unseen_dir, json_dir, gscv)
+samp_pivot_hs, sample_status_hs = preprocess_unseen_data.run_unseen_sample_analysis("BLAST", vees, XGB_out, bl_id_cols, debug, unseen_df_bn, json_mask, unseen_dir, json_dir, gscv)
 
-if debug:
-    species = {"Pseudomonas aeruginosa":["PA", "9027"], "Cutibacterium acnes":["Cacnes","Pacnes"], \
-                "Escherichia coli":["EC"], "Klebsiella pneumoniae":["Klebpneu"], \
-                  "Candida":["Calbicans"], "Staphylococcus aureus":["Saureus"], \
-                    "Bacillus subtilis": ["Bsubtilis"]}    
+genuine_pivot_ce, genuine_status_ce = preprocess_unseen_data.run_unseen_genuine_analysis("centrifuge", vees, XGB_out, ce_id_cols, debug, unseen_df_ce, sample_status_ce, species, gscv)
+genuine_pivot_hs, genuine_status_hs = preprocess_unseen_data.run_unseen_genuine_analysis("BLAST", vees, XGB_out, bl_id_cols, debug, unseen_df_bn, sample_status_hs, species, gscv)
+
+if debug: 
         
-    sample_status_ce = preprocess_unseen_data.debug_true_labels(XGB_out, sample_status_ce)
+    sample_status_ce = preprocess_unseen_data.debug_true_labels(sample_status_ce, json_mask, json_dir)
     ML_assessment.run_class_accuracy(sample_status_ce, "centrifuge", "Correct", "unseen-sample", "sample_encoded_mask", "XGB_sample_prediction")
     
-    sample_status_hs = preprocess_unseen_data.debug_true_labels(XGB_out, sample_status_hs)
+    sample_status_hs = preprocess_unseen_data.debug_true_labels(sample_status_hs, json_mask, json_dir)
     ML_assessment.run_class_accuracy(sample_status_hs, "BLAST", "Correct", "unseen-sample", "sample_encoded_mask", "XGB_sample_prediction")
     
     genuine_status_ce = preprocess_unseen_data.apply_mask(genuine_status_ce, species)
@@ -167,8 +222,15 @@ if debug:
     genuine_status_hs = preprocess_unseen_data.apply_mask(genuine_status_hs, species)
     ML_assessment.run_class_accuracy(genuine_status_hs, "BLAST", "Correct", "unseen-genuine", "mask", "XGB_genuine_prediction")
 
+    missing_hs, missing_ce = xgboost_data_cleaning.assess_quality(unseen_dir, BLASTn_name, 
+                              kingdom, independent_var,
+                              species, False, _ML_out_, new_samples, json_mask, json_dir)
 
-
+    model_compare_df_ce = ML_assessment.get_cleaned_data(sample_status_ce, genuine_status_ce)
+    model_compare_df_hs = ML_assessment.get_cleaned_data(sample_status_hs, genuine_status_hs)
+    
+    unse_decision_pivot_ce, unse_gen_con_status_ce = ML_assessment.calculate_twin_model_accuracy(model_compare_df_ce, "centrifuge", "unseen")
+    unse_decision_pivot_hs, unse_gen_con_status_hs = ML_assessment.calculate_twin_model_accuracy(model_compare_df_hs, "BLAST", "unseen")
 
 
 

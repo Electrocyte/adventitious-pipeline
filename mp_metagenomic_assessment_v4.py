@@ -9,20 +9,21 @@ Created on Wed Feb 17 15:14:19 2021
 from pathlib import Path
 from shutil import copyfile
 import json
-# import shutil
 import subprocess
 import numpy as np
 import argparse
 import glob
 import time
-import os
+import os    
+import sys
 import re
 import pandas as pd
+import shutil
+import gzip
 from pipeline import Convert_U2T_fastq, mp_host_remove, \
-     mp_trim_reads_v2, mp_demux_reads, bin_FP_TP, database_config, \
-     rank_centrifuge_predictions_for_aa_v2, \
-     mp_dep_krakenuniq_host, kraken_compare_host_reads, \
-     sample_name_sanity_check, \
+     mp_trim_reads_v2, mp_demux_reads, database_config, mp_time2prediction_v4, \
+     compare_time2read, dep_plot_not_target, rank_centrifuge_predictions_for_aa_v2, \
+     sample_name_sanity_check, dep_plot_false_positive_spp, \
      dep_flat_sample_classifier_test, mp_comb_ce_BN_v3, mp_cent_interpreter_v3, \
      dep_run_nanostat_analyses, guppy_demux
 
@@ -141,9 +142,9 @@ def handle_barcoded_samples(directory: str, samples: list, builder: list, df: pd
             if clean_str != "Empty_DataFrame":
                 print(f'Generating files here: {directory}/analysis/sample_data/{clean_str}/')
             
-                # build new file structure using correct sample name from df
-                if not os.path.isdir(f'{directory}/analysis/sample_data/{clean_str}/blastN/'):
-                    generate_file_dir(directory, clean_str)
+                # # build new file structure using correct sample name from df
+                # if not os.path.isdir(f'{directory}/analysis/sample_data/{clean_str}/blastN/'):
+                #     generate_file_dir(directory, clean_str)
                 input_fastq_for_copying = f"{directory}/analysis/sample_data/{tuple_[1]}/demux/{barcode}.fastq"
                 
                 # use barcode copy for the new directory generation (will be removed after analysis)
@@ -366,6 +367,23 @@ def combine_cent_BLAST_wrapper(directory: str, meta_data_name: str, barcoded: bo
     return updated_meta_data_name, agg_df_name, BLAST_spp_ranked, cent_spp_ranked
 
 
+# def run_T2Target(samples: list, targ_AA: dict, bN_name: str, directory: str, github: str, data_output) -> None:
+    # names = []
+    # for s in samples:
+    #     name = []
+    #     for n, element in enumerate(s.split("_")):
+    #         if n == 2 or n == 3 or n == 4:
+    #             name.append(element)
+    #     names.append("_".join(name))
+    # names = list(set(names))
+    
+    # print(f"Species assessed for time to target: {targ_AA}")        
+    # if isinstance(targ_AA, str):
+    #     target_detection = f"{directory}/analysis/target_detection/{targ_AA}/{bN_name}/"
+    #     mp_time2prediction_v4.main(samples, github, bN_name, targ_AA, directory, True)
+    #     ordered_ss, ordered_me = compare_time2read.main(target_detection, bN_name, names, True, targ_AA, directory, data_output)
+
+
 def run_ranked_meta_reads(mg_clf_spp_ranked: list, classifier: str, data_out: str, directory: str, summ_reads: pd.DataFrame, classified_reads: str, kingdom: str, BLASTn_name: str) -> None:
     if len(mg_clf_spp_ranked) > 0:
         for mg_clf_s_ranked in mg_clf_spp_ranked:
@@ -384,8 +402,16 @@ def run_ranked_meta_reads(mg_clf_spp_ranked: list, classifier: str, data_out: st
             df_ranks.to_csv(f"{data_out}/describe_ranked_{mg_clf_s_ranked}_{classifier}_metagenome_reads.csv", index=False)
 
 
-
-                
+def de_gunzip_file(files: list) -> None:
+    for file in files:
+        with gzip.open(file, 'rb') as f_in:
+            not_gz = file.replace(".gz", "")
+            if not os.path.isfile(not_gz):
+                with open(not_gz, 'wb') as f_out:
+                    shutil.copyfileobj(f_in, f_out)
+        print(file, file.replace(".gz", ""))
+        
+            
 parser = argparse.ArgumentParser(description='Running FAST metagenomic assessor')
 
 # input file dir
@@ -473,7 +499,7 @@ coverage_libraries = database_config.coverage_databases()
 host_coverage_libraries = database_config.host_coverage_databases()
 
 # choose a blastN library
-parser.add_argument('-bl', '--blastN_lib', choices=blastN_libraries.keys(), default="v_f_b")#, help='Input desired library for blastN analysis e.g. cviral, v_f_b', default="v_f_b")
+parser.add_argument('-bl', '--blastN_lib', choices=blastN_libraries.keys(), default="16S_16S")#, help='Input desired library for blastN analysis e.g. 16S_16S, 16S_23S, NR99_SSU, NR99_LSU, SILVA, bacteria, human, cviral, virus, uviral, fungal_all, small_bacteria, filter_bacteria, chinese_hamster', default="16S_16S")
 
 ######### !!!!!!!!!!!!!!!!!!!! #########
 # this may require changing if not calling the function from GitHub directory
@@ -496,6 +522,7 @@ override_path_kr = args.override_ML_path_kr
 dir_input = Path(f'{args.directory}')
 cent_index = args.centrifuge_index
 threads_ = str(args.threads)
+# q_score_ = str(args.q_score)
 
 # boolean inputs
 ########################
@@ -510,6 +537,7 @@ meta_data_bool = args.meta_data
 hosts = args.host_name
 meta_fastq_fail = args.fastq_fail
 build_new_model = args.new_ML_model
+# fast_build_new_model = args.fast_new_ML_model
 ########################
 
 lenhosts = len(hosts)
@@ -546,29 +574,62 @@ if barcoded_fastqs != None:
     print("Barcoded preprocessing")
     barcode_df = pd.read_csv(f'{barcoded_fastqs}')
     samples, folder_builder = get_barcodes(barcode_df)   
-
-    if not barcode_df["Sample_original"].str.contains("guppy-demux").any():            
-        must_be_removed, experiment_names = handle_barcoded_samples(top_dir, samples, folder_builder, barcode_df, threads_, meta_fastq_fail)
-        dep_run_nanostat_analyses.run_nanostat(top_dir, threads_, barcoded_fastqs)
+    
+    guppy_demux_idx = barcode_df.loc[barcode_df["Sample_original"].str.contains("guppy-demux")].index
+    qcat_demux_samples_idx = list(set(list(barcode_df.index)) - set(guppy_demux_idx))
+    qcat_demux_samples = barcode_df.iloc[qcat_demux_samples_idx]
+    qcat_demux_samples["sample"] = qcat_demux_samples['date'].astype(str) \
+    +"_"+ qcat_demux_samples['NA'] +"_"+ qcat_demux_samples['strain'] \
+        +"_"+ qcat_demux_samples['concentration_CFU'].astype(str) \
+            +"_"+ qcat_demux_samples['batch'].astype(str) \
+                +"_"+ qcat_demux_samples['duration_h'].astype(str)
+    qcat_demux_samples_check = list(qcat_demux_samples["sample"].unique())
+                
+    guppy_demux_samples = barcode_df.iloc[guppy_demux_idx]
+    guppy_demux_samples["sample"] = guppy_demux_samples['date'].astype(str) \
+        +"_"+ guppy_demux_samples['NA'] +"_"+ guppy_demux_samples['strain'] \
+            +"_"+ guppy_demux_samples['concentration_CFU'].astype(str) \
+                +"_"+ guppy_demux_samples['batch'].astype(str) \
+                    +"_"+ guppy_demux_samples['duration_h'].astype(str)
+    guppy_demux_sample_check = list(guppy_demux_samples["sample"].unique())
+    folder_builder_guppy_demux = [i for n,i in enumerate(folder_builder) if folder_builder[n][0] in guppy_demux_sample_check]
+    
+    # if not barcode_df["Sample_original"].str.contains("guppy-demux").any():       
+    print("Running qcat demux")    
+    must_be_removed, experiment_names = handle_barcoded_samples(top_dir, qcat_demux_samples_check, folder_builder, barcode_df, threads_, meta_fastq_fail)
+    dep_run_nanostat_analyses.run_nanostat(top_dir, threads_, barcoded_fastqs)
         
     prefix = '/'.join(barcoded_fastqs.split("/")[:-1])
     suffix = barcoded_fastqs.split("/")[-1].split(".")[0]
     temp_file = f"{prefix}/temp_{suffix}.txt"
+    
+    # use this for further processing regardless
+    
     print(f"Generating temp file: {temp_file}")
     with open(temp_file, 'w') as f:
         for sample in samples:
             f.write(f"{sample}\n")
 
-    if barcode_df["Sample_original"].str.contains("guppy-demux").any():  
-        barcoded_sample = False
-        print("Running guppy demux")
-        guppy_demux.main(folder_builder, top_dir)
-        dep_run_nanostat_analyses.run_nanostat(top_dir, threads_, temp_file)
+    # if barcode_df["Sample_original"].str.contains("guppy-demux").any():  
+        # barcoded_sample = False
+    print("Running guppy demux")
+    guppy_demux.main(folder_builder_guppy_demux, top_dir)
+    multiple_fastq = temp_file
+    print(f"\n\nTemporary file name: {multiple_fastq}\n\n")
+    print("Exiting barcode run.")
+    sys.exit()
+        # dep_run_nanostat_analyses.run_nanostat(top_dir, threads_, temp_file)
 
 if multiple_fastq != None:
     print("Multiple non-barcoded samples for preprocessing")
     samples = [line.rstrip('\n').split(',') for line in open(f'{multiple_fastq}')]
     samples = [item for sublist in samples for item in sublist]
+    
+    for sample in samples:
+        gz_files = glob.glob(f"{top_dir}/{sample}/**/fastq_*/*q*z")
+        if len(gz_files) > 0:
+            de_gunzip_file(gz_files)  
+        
     dep_run_nanostat_analyses.run_nanostat(top_dir, threads_, multiple_fastq)
 
 # check sample names adhere to the convention and don't break the rest of the analysis.
@@ -590,6 +651,8 @@ if bN_name == "fungal_all":
     kingdom = "fungus"
 if bN_name == "v_f_b":
     kingdom = "v_f_b"
+if bN_name == "v_f_b2":
+    kingdom = "v_f_b2"
 
 latest_run = ""
 
@@ -602,6 +665,35 @@ host_bool, new_fqs, Direct_RNA, no_host = run_host_removal(top_dir, samples, hos
 
 total_reads = run_metagenome_classifiers(top_dir, hsbn_path_str, cent_index, bN_name, blastN_lib, threads_, kingdom, no_host, new_fqs, epoch_dir_host, github, samples)
 
+meta_data_name, agg_df_name, BLAST_spp_ranked, cent_spp_ranked = combine_cent_BLAST_wrapper(top_dir, meta_data_name, barcoded_sample, kingdom, bN_name, no_host, targ_species, blastN_lib, samples)
+
+blast_fix_read_count = f"{top_dir}/analysis/describe_{bN_name}{no_host}_all_agg.csv"
+fixer_df = pd.read_csv(blast_fix_read_count)
+count_dict = {}
+for i, group in fixer_df.groupby(['date', 'NA', 'strain', 'concentration_CFU', 'batch', 'duration_h',]):
+    counts = []
+    for j, spp in group.groupby(['genus_species']):
+        if len(spp) > 1:
+            counts .append( spp["length_count"].max())
+        else:
+            counts .append( int(spp["length_count"]))
+    count_dict[i] = sum(counts)
+a_temp = pd.DataFrame.from_dict(count_dict, orient='index', columns = ["hs_classified"])
+a_temp.reset_index(inplace=True)   
+a_temp = a_temp.rename(columns={"index": "sample"})
+a_temp['sample'] = a_temp['sample'].astype(str).str.replace(r"[(,')]", "")
+a_temp['sample'] = a_temp['sample'].astype(str).str.replace(r" ", "_")
+
+def fix_apply(row):
+    if row['hs_all'] < row['hs_classified']:
+        sample = row['sample'].replace('CFU', '')
+        present_sample = a_temp.loc[a_temp['sample'] == sample]
+        row['hs_classified'] = present_sample
+        row['hs_classified'] = int(present_sample["hs_classified"])
+        return row
+    else:
+        return row
+        
 # check if species is dictionary of many species or just one species as str.
 if targ_species is not None:
     if '{' in targ_species and '}' in targ_species:
@@ -609,9 +701,8 @@ if targ_species is not None:
        
 print(f"total_reads: {total_reads}\n")
 summ_reads = pd.DataFrame(total_reads, columns=["sample", "hs_all", "hs_classified", "cent_all", "cent_classified", "hsbn_host_reads", "centrifuge_host_reads", "host_background_BLAST"])
+summ_reads = summ_reads.apply(fix_apply, axis = 1)
 print(f"summ_reads: {summ_reads}\n")
-
-meta_data_name, agg_df_name, BLAST_spp_ranked, cent_spp_ranked = combine_cent_BLAST_wrapper(top_dir, meta_data_name, barcoded_sample, kingdom, bN_name, no_host, targ_species, blastN_lib, samples)
 
 AA_analysis = f"coverage_summary_{bN_name}_{kingdom}_{no_host}_{agg_df_name}"
 data_output = f"{dir_input}/analysis/{AA_analysis}"
@@ -632,7 +723,115 @@ print(f"BLAST_spp_ranked: {BLAST_spp_ranked}, \ncent_spp_ranked: {cent_spp_ranke
 run_ranked_meta_reads(cent_spp_ranked, "centrifuge", data_output, top_dir, summ_reads, "cent_classified", kingdom, bN_name)
 run_ranked_meta_reads(BLAST_spp_ranked, "BLAST", data_output, top_dir, summ_reads, "hs_classified", kingdom, bN_name)
 
+############### ADDITIONAL ANALYSES ###############
 
+# # # # Test parameters
+# # # ###########################
+# # # need to add ability to input own variables here in a config file
+# if skip:
+#     host_bool = True
+#     Direct_RNA = False
+#     bN_name = "cviral"
+#     kingdom = "virus"
+#     cov_name = "virus"
+#     no_host = "_no_host"
+#     agg_df_name = "OCS"
+#     AA_analysis = f"coverage_summary_{bN_name}_{kingdom}_{cov_name}{no_host}_{agg_df_name}"
+#     data_output = f"{dir_input}/analysis/{AA_analysis}"
+#     BLAST_spp_ranked = ['Minute_virus']
+#     meta_data_name = f"describe_{kingdom}_OCS_{bN_name}_OCS{no_host}.csv"
+    
+# # if skip:
+# #     host_bool = True
+# #     Direct_RNA = False
+# #     bN_name = "fungal_all"
+# #     kingdom = "fungus"
+# #     cov_name = "fungal_all"
+# #     no_host = "_no_host"
+# #     agg_df_name = "OCS"
+# #     AA_analysis = f"coverage_summary_{bN_name}_{kingdom}_{cov_name}{no_host}_{agg_df_name}"
+# #     data_output = f"{dir_input}/analysis/{AA_analysis}"
+# #     BLAST_spp_ranked = ['Candida']
+# #     meta_data_name = f"hs_{kingdom}_OCS_{bN_name}_OCS{no_host}.csv"
+# # # ###########################
+
+# # bin false positive and true positive reads
+# if bin_AA_reads:
+#     analysis_directory = f"{top_dir}/analysis/"
+#     coverage_list = f"{data_output}/mp_centrifuge_to_coverage_agg*.csv"
+#     coverage_list = glob.glob(coverage_list)
+#     if len(coverage_list) > 0: 
+#             coverage_list = coverage_list[0]
+#             meta_data_name_dir = f"{analysis_directory}/{meta_data_name}"
+#             bin_FP_TP.main(samples, analysis_directory, meta_data_name_dir, coverage_list, kingdom, bN_name, no_host, Direct_RNA, host_bool, BLAST_spp_ranked)
+
+# compare time to next targeted read
+# print(f"Time to next read active: {timetonextread}")
+# if timetonextread:
+#     analysis_directory = f"{top_dir}/analysis/"        
+#     for B_spp_ranked in BLAST_spp_ranked:
+#         B_spp_ranked = B_spp_ranked.replace(" ", "_")
+#         run_T2Target(samples, B_spp_ranked, bN_name, top_dir, github, data_output)
+#         print(f"BLAST_spp_ranked: {B_spp_ranked}")
+#         if "Minute" in B_spp_ranked:
+#             # plot TARGETS AND false positives
+#             dep_plot_not_target.main(analysis_directory, meta_data_name, data_output, samples, B_spp_ranked)
+#             AA_analysis_dir = f"{top_dir}/analysis/{AA_analysis}"
+#             AA_analysis_FPs = f"{AA_analysis_dir}/FP_reads/"
+#             dep_plot_false_positive_spp.main(AA_analysis_FPs, github, top_dir, bN_name, no_host, kingdom)
+
+# # run host analysis with kraken
+# start_host_analysis = int(time.time())
+# print("\n\nCOMMENCING HOST READ ANALYSIS\n")
+# if host_analysis:
+#     if host_bool:
+#             if len(hosts) > 0:
+#                 for host in hosts:
+#                     if host in "CHOK1":
+#                         host_species = "Cricetulus griseus"
+#                         minimap_host = "chinese_hamster_chromosomes"
+#                     if host in "TC":
+#                         host_species = "Homo sapiens"
+#                         minimap_host = "human"
+#                     if host in "Jurkat":
+#                         host_species = "Homo sapiens"
+#                         minimap_host = "human"
+
+#                 all_metagenome_reads = pd.read_csv(f"{data_output}/metagenome_reads.csv")
+#                 kraken_cov_folder = f"kraken_coverage_host_{host_species.replace(' ', '_')}"
+#                 host_name_analysis = f"coverage_summary_{minimap_host}_host_original"
+#                 host_data_output = f"{dir_input}/analysis/{host_name_analysis}"
+#                 os.makedirs(host_data_output, exist_ok=True)
+#                 host_cov_lib = host_coverage_libraries[minimap_host]
+#                 if isinstance(host_cov_lib, str):
+#                     library = host_cov_lib.split('/')[-2:-1][0] # '16S_23S'
+#                 minimap_dir = f"minimap2_alignment_{minimap_host}_host"
+#                 reads_dir = f"{top_dir}/analysis/sample_data/**/trimmed/"
+#                 reads_file = f"{reads_dir}/tr*q"
+#                 glob_reads_files = glob.glob(reads_file)
+                
+#                 # MINIMAP2 analysis for host reads 
+#                 host_dependent_coverage_multiproc.run_coverage(top_dir, threads_, random_spp_sample, clean_up, host_cov_lib, host_data_output, glob_reads_files, minimap_host, samples, False, minimap_dir, epoch_dir_host)
+#                 max_coverage_vals = host_dependent_coverage_multiproc.max_coverage(minimap_dir, samples, top_dir, minimap_host)
+#                 all_metagenome_reads['max_cov'] = all_metagenome_reads['sample'].map(max_coverage_vals)
+#                 # save the latest run no matter what. 
+#                 latest_run = f"{epoch_dir}/metagenome_reads_max_cov_{str(epoch_time)}.csv"
+#                 all_metagenome_reads.to_csv(latest_run, index=False)
+                
+#                 # KRAKEN analysis for host reads - requires at least one sample to contain host reads.
+#                 mp_dep_krakenuniq_host.run_kraken_host_analysis(top_dir, threads_, samples, kraken_cov_folder)
+#                 kraken_compare_host_reads.run_host_kraken_charting(top_dir, kraken_cov_folder, AA_analysis, host_species, True, minimap_host, host_name_analysis, samples)
+                
+#                 # run time analysis
+#                 end_host_analysis = int(time.time())
+#                 elapsed_time = end_host_analysis - start_host_analysis    
+#                 elapsed_time_min = elapsed_time/60
+#                 time_check = [max_coverage_vals, f"Runtime for host analysis: {elapsed_time} seconds or {elapsed_time_min} minutes.\n"]
+#                 with open(f"{epoch_dir_host}/host_read_analysis.json", 'w', encoding='utf-8') as f:
+#                     json.dump(time_check, f)
+
+nanodf = pd.read_csv(f"{top_dir}/analysis/nanoplot_summary_data.csv")
+print(nanodf)
 print(f"Summary data located at: {latest_run}")
 
 # EXAMPLE FOR RUNNING SAMPLES - RECOMMEND SETTING "-c" TO REMOVE INTERMEDIATE FILES
@@ -645,12 +844,10 @@ print(f"Summary data located at: {latest_run}")
 
 # time ~/SMART-CAMP/mp_metagenomic_assessment_v4.py -d /mnt/usersData/Viral_human/  -t 20 -ci ~/SequencingData/Centrifuge_libraries/ -c -qf -bl "v_f_b" -m -rs 1 -fd "/home/james/SMART-CAMP/configs/viral_DNA_all8.txt" -hn "TC,Jurkat" 
 
-# time ~/SMART-CAMP/mp_metagenomic_assessment_v4.py -d /mnt/usersData/DNA/  -t 20 -ci ~/SequencingData/Centrifuge_libraries/ -c -qf -bl "v_f_b" -m -rs 1 -fd "/home/james/SMART-CAMP/configs/ALL_DNA_BAC_FUN.txt" -hn "TC" 
-
 # NEW NEGATIVE CONTROLS
 # time ~/SMART-CAMP/mp_metagenomic_assessment_v4.py -d /mnt/usersData/DNA/  -t 20 -ci ~/SequencingData/Centrifuge_libraries/ -c -qf -cl "virus" -bl "cviral"  -m -rs 1 -bc "/home/james/SMART-CAMP/configs/aDNA_all2.csv" -hn "TC" 
 # time ~/SMART-CAMP/mp_metagenomic_assessment_v4.py -d /mnt/usersData/DNA/  -t 20 -ci ~/SequencingData/Centrifuge_libraries/ -c -qf -cl "fungal_all" -bl "fungal_all"  -m -rs 1 -bc "/home/james/SMART-CAMP/configs/aDNA_all2.csv" -hn "TC" 
 # time ~/SMART-CAMP/mp_metagenomic_assessment_v4.py -d /mnt/usersData/DNA/  -t 20 -ci ~/SequencingData/Centrifuge_libraries/ -c -qf -cl "16S_23S" -bl "filter_bacteria"  -m -rs 1 -bc "/home/james/SMART-CAMP/configs/aDNA_all2.csv" -hn "TC" 
 
-
+# time ~/SMART-CAMP/mp_metagenomic_assessment_v4.py -d /mnt/usersData/DNA/  -t 20 -ci ~/SequencingData/Centrifuge_libraries/ -c -qf -bl "v_f_b" -m -rs 1 -fd "/home/james/SMART-CAMP/configs/ALL_DNA_BAC_FUN.txt" -hn "TC" 
 
